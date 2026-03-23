@@ -63,7 +63,8 @@ return {
 				vim.treesitter.start(buf, language)
 
 				-- enables treesitter based indentation
-				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter.indent'.indentexpr()"
 			end,
 		})
 	end,

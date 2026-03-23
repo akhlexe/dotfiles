@@ -1,9 +1,41 @@
 return {
-    "github/copilot.vim",
-    lazy = false,
-    config = function()
-      vim.g.copilot_no_tab_map = true
-
-      vim.keymap.set("i", "<C-l>", "copilot#Accept('<CR>')", { silent = true, expr = true , replace_keycodes = false })
-    end,
-  }
+	"zbirenbaum/copilot.lua",
+	cmd = "Copilot",
+	event = "InsertEnter",
+	config = function()
+		require("copilot").setup({
+			suggestion = {
+				enabled = true,
+				auto_trigger = true,
+				debounce = 75,
+				keymap = {
+					accept = "<C-l>",
+					accept_word = false,
+					accept_line = false,
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
+				},
+			},
+			panel = {
+				enabled = true,
+				auto_refresh = true,
+				keymap = {
+					jump_prev = "[[",
+					jump_next = "]]",
+					accept = "<CR>",
+					refresh = "gr",
+					open = "<M-CR>",
+				},
+			},
+			filetypes = {
+				yaml = true,
+				markdown = true,
+				help = false,
+				gitcommit = true,
+				gitrebase = true,
+				["*"] = true,
+			},
+		})
+	end,
+}

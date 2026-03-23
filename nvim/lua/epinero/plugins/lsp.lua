@@ -66,6 +66,17 @@ return {
 				-- Execute a code action, usually your cursor needs to be on top of an error
 				-- or a suggestion from your LSP for this to activate.
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+				vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+
+				-- Organize imports.
+				vim.keymap.set("n", "<leader>ci", function()
+					vim.lsp.buf.code_action({
+						context = {
+							only = { "source.organizeImports" },
+						},
+						apply = true,
+					})
+				end, { desc = "Organize imports" })
 
 				-- Opens a popup that displays documentation about the word under your cursor
 				-- See `:help vim.lsp.buf.hover` for more information about what this does and how to configure it
@@ -140,7 +151,7 @@ return {
 						},
 						staticcheck = true,
 						gofumpt = true,
-						usePlaceholders = true,
+						usePlaceholders = false,
 						completeUnimported = true,
 					},
 				},
