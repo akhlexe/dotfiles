@@ -21,7 +21,64 @@
       "*.env.*": "deny"
     }
   },
-  "agent": {},
+  "agent": {
+    "architect": {
+      "permission": {
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "implementor": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "tester": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "reviewer": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "debugger": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "docs-writer": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "refactorer": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "git-ops": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    }
+  },
   "mcp": {
     "context7": {
       "enabled": true,

@@ -1,0 +1,3 @@
+bind j everywhere down
+bind k everywhere up
+browser "xdg-open %u"
