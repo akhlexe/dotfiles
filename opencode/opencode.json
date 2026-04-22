@@ -58,6 +58,7 @@
       }
     }
   },
+  "default_agent": "architect",
   "autoupdate": true,
   "mcp": {
     "context7": {

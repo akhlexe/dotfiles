@@ -51,21 +51,8 @@ end
 
 -- Nuevo encoding de teclas.
 -- Muy importante para neovim moderno.
--- Las terminales antiguas no distinguen bien:
--- Ctrl+i
--- Tab
---
--- o
---
--- Ctrl+m
--- Enter
---
--- Porque envian el mismo codigo ascii
---
--- Entonces CSI-u encoding es un estandar moderno que permite enviar teclas como:
--- Ctrl+Shift+Alt+Key
--- sin colisiones
-config.enable_csi_u_key_encoding = true
+-- config.enable_csi_u_key_encoding = true
+config.enable_kitty_keyboard = true
 
 -- Undercurl support (LSP diagnostics, spelling)
 -- "undercurl" es el subrayado ondulado ~~~~~ que usa LSP para marcar warnings y errores.
