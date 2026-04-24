@@ -1,7 +1,7 @@
 ---
 description: Handles git operations — commits, PRs, changelogs, and release notes. No file edits, only git and gh commands.
 mode: subagent
-model: openai/gpt-5-mini
+model: openai/gpt-5.4-mini
 steps: 10
 permission:
   edit: deny

@@ -1,7 +1,7 @@
 ---
 description: Investigates bugs by reading logs and tracing root causes. Proposes a fix, explains the reasoning, then applies it.
 mode: subagent
-model: openai/gpt-5-mini
+model: openai/gpt-5.4-mini
 steps: 20
 permission:
   edit: allow

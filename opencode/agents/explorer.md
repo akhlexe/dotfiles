@@ -1,7 +1,7 @@
 ---
 description: Explores the codebase in read-only mode and returns compact findings for other agents.
 mode: subagent
-model: openai/gpt-5-mini
+model: openai/gpt-5.4-mini
 steps: 12
 permission:
   edit: deny
