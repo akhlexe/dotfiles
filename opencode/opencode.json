@@ -8,6 +8,20 @@
         }
       }
     },
+    "explorer": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
+    "atomic-executor": {
+      "permission": {
+        "task": {
+          "*": "deny"
+        }
+      }
+    },
     "implementor": {
       "permission": {
         "task": {

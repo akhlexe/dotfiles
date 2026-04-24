@@ -15,3 +15,5 @@ After completing each batch:
 4. Wait for approval before continuing to the next batch
 
 Do not combine multiple steps into one large change.
+
+If the request is part of `atomic-tdd`, stop and use the `atomic` command instead.

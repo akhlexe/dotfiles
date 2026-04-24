@@ -1,5 +1,5 @@
 ---
-description: Switch to the architect agent for conversational planning and analysis
+description: Switch to the architect agent for planning, delegated exploration, and orchestration
 agent: architect
 ---
 

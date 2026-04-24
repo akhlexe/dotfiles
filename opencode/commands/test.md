@@ -15,3 +15,5 @@ Process:
 6. Wait for approval before starting the next batch
 
 Prioritize: happy path → edge cases → error handling → integration points.
+
+If the request is part of a strict `atomic-tdd` loop, stop and use the `atomic` command instead.

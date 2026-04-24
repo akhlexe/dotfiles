@@ -8,6 +8,10 @@ description: A disciplined, incremental TDD workflow for building features one a
 A personal development workflow for building software incrementally, with full confidence at every step.
 Applies to any language, any project.
 
+This skill is designed to work with two roles:
+- `architect` owns Phase A and Phase B
+- `atomic-executor` owns Phase C
+
 ## When to Use
 
 Activate this skill when:
@@ -20,6 +24,8 @@ Activate this skill when:
 ## The Three Phases
 
 ### Phase A — Feature Understanding
+
+Owner: `architect`
 
 Before writing anything, understand the feature fully.
 
@@ -36,6 +42,8 @@ Questions to answer before moving on:
 
 ### Phase B — Feature Breakdown
 
+Owner: `architect`
+
 Split the feature into atomic steps.
 
 **The atomic rule:**
@@ -50,10 +58,13 @@ Examples:
 
 Save the step map and validate it before writing any code.
 Do not proceed to Phase C until the step map is agreed upon.
+When implementation starts, `architect` should hand off exactly one step at a time to `atomic-executor`.
 
 ---
 
 ### Phase C — The Loop
+
+Owner: `atomic-executor`
 
 Repeat this loop for every atomic step:
 
@@ -63,8 +74,8 @@ Repeat this loop for every atomic step:
 3. TEST      → Write the approved test. It must fail (RED). Do not write implementation yet.
 4. IMPLEMENT → Write the minimum code to make the test pass. Nothing more.
 5. VERIFY    → Run build + tests. Confirm GREEN. If not → back to step 4.
-6. COMMIT    → Commit with a clear, descriptive message.
-7. NEXT      → Move to the next step. Return to step 1.
+6. COMMIT    → Create one conventional commit for this atomic step only.
+7. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
 ```
 
 ---
@@ -72,11 +83,13 @@ Repeat this loop for every atomic step:
 ## Rules (never break these)
 
 - **Never skip the plan.** No implementation without an agreed step.
-- **Never skip the test preview.** Always show the test to the user and wait for approval before delegating.
+- **Never skip the test preview.** Always show the test to the user and wait for approval before writing it.
 - **Never commit red tests.** Green is the only valid commit state.
 - **Never gold-plate.** Write the minimum code to pass the test. Refactor later.
 - **Never merge steps.** One loop = one commit = one atomic behavior.
 - **If verify fails** → back to IMPLEMENT (step 4), not back to PLAN (step 1).
+- **Use conventional commits.** The commit message must follow `type(scope): description` when the repository uses that convention.
+- **One handoff, one step.** `architect` hands off one atomic step at a time; `atomic-executor` does not pull in future steps.
 
 ---
 
@@ -86,6 +99,7 @@ A feature is done when:
 - All steps in the step map are committed and green
 - The roadmap or tracking document is updated
 - The milestone is marked complete
+- `architect` confirms there are no remaining agreed steps
 
 ---
 
