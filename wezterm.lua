@@ -51,8 +51,9 @@ end
 
 -- Nuevo encoding de teclas.
 -- Muy importante para neovim moderno.
--- config.enable_csi_u_key_encoding = true
-config.enable_kitty_keyboard = true
+config.enable_csi_u_key_encoding = true
+config.allow_win32_input_mode = false
+-- config.enable_kitty_keyboard = true
 
 -- Undercurl support (LSP diagnostics, spelling)
 -- "undercurl" es el subrayado ondulado ~~~~~ que usa LSP para marcar warnings y errores.
