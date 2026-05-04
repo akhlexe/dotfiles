@@ -74,8 +74,9 @@ Repeat this loop for every atomic step:
 3. TEST      → Write the approved test. It must fail (RED). Do not write implementation yet.
 4. IMPLEMENT → Write the minimum code to make the test pass. Nothing more.
 5. VERIFY    → Run build + tests. Confirm GREEN. If not → back to step 4.
-6. COMMIT    → Create one conventional commit for this atomic step only.
-7. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
+6. SHOW RESULT → Present the implementation outcome and verification evidence, then wait for explicit user approval before committing.
+7. COMMIT    → After implementation approval, create one conventional commit for this atomic step only.
+8. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
 ```
 
 ---
@@ -85,6 +86,7 @@ Repeat this loop for every atomic step:
 - **Never skip the plan.** No implementation without an agreed step.
 - **Never skip the test preview.** Always show the test to the user and wait for approval before writing it.
 - **Never commit red tests.** Green is the only valid commit state.
+- **Never commit without implementation approval.** Test approval allows writing the test; a separate explicit approval is required after GREEN and before COMMIT.
 - **Never gold-plate.** Write the minimum code to pass the test. Refactor later.
 - **Never merge steps.** One loop = one commit = one atomic behavior.
 - **If verify fails** → back to IMPLEMENT (step 4), not back to PLAN (step 1).
