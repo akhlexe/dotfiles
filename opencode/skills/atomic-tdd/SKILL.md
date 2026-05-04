@@ -29,6 +29,7 @@ Owner: `architect`
 
 Before writing anything, understand the feature fully.
 
+- Use the `grill-me` skill to discuss the change
 - Discuss the **what**, **why**, and **edge cases**
 - Ask clarifying questions until nothing is ambiguous
 - **No code, no tests yet**
@@ -56,8 +57,8 @@ Examples:
 - ✅ "Skips lines that start with #"
 - ❌ "Parses and validates the urls file" → too broad, split it
 
-Save the step map and validate it before writing any code.
-Do not proceed to Phase C until the step map is agreed upon.
+Save the step map to persistent memory and validate it before writing any code.
+Do not proceed to Phase C until the saved step map is agreed upon.
 When implementation starts, `architect` should hand off exactly one step at a time to `atomic-executor`.
 
 ---
