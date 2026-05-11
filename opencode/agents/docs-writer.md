@@ -1,7 +1,7 @@
 ---
 description: Writes and updates documentation, READMEs, API docs, and code comments. Works in batches and waits for review.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 15
 permission:
   edit: allow

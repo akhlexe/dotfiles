@@ -1,7 +1,7 @@
 ---
 description: Explores the codebase in read-only mode and returns compact findings for other agents.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 12
 permission:
   edit: deny

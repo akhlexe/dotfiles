@@ -1,7 +1,7 @@
 ---
 description: Handles git operations — commits, PRs, changelogs, and release notes. No file edits, only git and gh commands.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 10
 permission:
   edit: deny

@@ -1,7 +1,7 @@
 ---
 description: Reviews code for quality, security, and performance. Read-only — produces a structured report without making any changes.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 15
 permission:
   edit: deny

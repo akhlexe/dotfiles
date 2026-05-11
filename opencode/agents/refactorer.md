@@ -1,7 +1,7 @@
 ---
 description: Refactors code to improve structure, readability, or performance without changing behavior. Verifies with tests after each batch.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 20
 permission:
   edit: allow

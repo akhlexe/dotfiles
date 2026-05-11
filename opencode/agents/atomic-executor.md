@@ -1,7 +1,7 @@
 ---
 description: Executes exactly one atomic TDD loop for an approved step. Previews the test, waits for approval, drives RED->GREEN->VERIFY, and creates one conventional commit.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 20
 permission:
   edit: allow

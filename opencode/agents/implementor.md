@@ -1,7 +1,7 @@
 ---
 description: Implements code changes from a plan or description. Works in small, reviewable batches and pauses for approval after each one.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: github-copilot/claude-sonnet-4.6
 steps: 25
 permission:
   edit: allow
