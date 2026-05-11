@@ -82,7 +82,7 @@
     },
     "engram": {
       "command": [
-        "/home/exequiel/go/bin/engram",
+        "/home/epinero/go/bin/engram",
         "mcp",
         "--tools=agent"
       ],
