@@ -71,13 +71,12 @@ Repeat this loop for every atomic step:
 
 ```
 1. PLAN      → Confirm the current step. State exactly what the test will assert.
-2. SHOW TEST → Show the exact test code to the user and wait for approval before proceeding.
-3. TEST      → Write the approved test. It must fail (RED). Do not write implementation yet.
-4. IMPLEMENT → Write the minimum code to make the test pass. Nothing more.
-5. VERIFY    → Run build + tests. Confirm GREEN. If not → back to step 4.
-6. SHOW RESULT → Present the implementation outcome and verification evidence, then wait for explicit user approval before committing.
-7. COMMIT    → After implementation approval, create one conventional commit for this atomic step only.
-8. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
+2. TEST      → Write the test and run the full test suite. RED is valid only when the expected failure comes from this step; unrelated failures block the loop.
+3. IMPLEMENT → Write the minimum code to make the test pass. Nothing more.
+4. VERIFY    → Run build + the full test suite. Confirm GREEN. If not → back to step 3.
+5. SHOW RESULT → Present the implementation outcome and full-suite verification evidence, then wait for explicit user approval before committing.
+6. COMMIT    → After implementation approval, create one conventional commit for this atomic step only.
+7. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
 ```
 
 ---
@@ -85,12 +84,14 @@ Repeat this loop for every atomic step:
 ## Rules (never break these)
 
 - **Never skip the plan.** No implementation without an agreed step.
-- **Never skip the test preview.** Always show the test to the user and wait for approval before writing it.
+- **The only approval gate is before COMMIT.** Do not pause for approval before writing or running the test.
 - **Never commit red tests.** Green is the only valid commit state.
-- **Never commit without implementation approval.** Test approval allows writing the test; a separate explicit approval is required after GREEN and before COMMIT.
+- **Never treat partial verification as valid.** Both RED and GREEN must be validated by running the full test suite, not only touched tests.
+- **Never accept unrelated failures during RED.** The expected failure must come from the current atomic step; if other tests fail, fix the baseline first.
+- **Never commit without implementation approval.** A separate explicit approval is required after GREEN and before COMMIT.
 - **Never gold-plate.** Write the minimum code to pass the test. Refactor later.
 - **Never merge steps.** One loop = one commit = one atomic behavior.
-- **If verify fails** → back to IMPLEMENT (step 4), not back to PLAN (step 1).
+- **If verify fails** → back to IMPLEMENT (step 3), not back to PLAN (step 1).
 - **Use conventional commits.** The commit message must follow `type(scope): description` when the repository uses that convention.
 - **One handoff, one step.** `architect` hands off one atomic step at a time; `atomic-executor` does not pull in future steps.
 

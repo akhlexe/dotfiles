@@ -78,10 +78,11 @@ When the user is ready to implement, produce a handoff packet for exactly one at
 - Out of scope for this step: <list>
 
 ### Execution Rules
-- Preview the exact test and wait for approval
-- Write the test first and confirm RED
+- Write the test first and run the full test suite to confirm RED
+- Treat RED as valid only when the expected failure comes from this step; unrelated failures block the loop
 - Implement the minimum code to reach GREEN
-- Verify the relevant tests/build
+- Verify with build plus the full test suite
+- Wait for explicit approval only after GREEN and before commit
 - Create one conventional commit for this step only
 ```
 
