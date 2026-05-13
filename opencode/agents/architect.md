@@ -1,7 +1,6 @@
 ---
 description: Conversational architect — uses grill-me for Phase A, breaks features into atomic tasks, saves milestone plans, and hands off execution. Does not write code.
 mode: primary
-model: openai/gpt-5.4
 permission:
   edit: ask
   bash: ask

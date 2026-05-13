@@ -1,7 +1,6 @@
 ---
 description: Executes exactly one atomic TDD loop for an approved step. Drives RED->GREEN->VERIFY with full-suite validation and creates one conventional commit after approval.
 mode: subagent
-model: openai/gpt-5.4-mini
 steps: 20
 permission:
   edit: allow

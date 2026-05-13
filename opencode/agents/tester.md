@@ -1,7 +1,6 @@
 ---
 description: Writes tests, runs test suites, and reports results after each batch for approval.
 mode: subagent
-model: openai/gpt-5.4-mini
 steps: 20
 permission:
   edit: allow

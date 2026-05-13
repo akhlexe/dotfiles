@@ -1,7 +1,6 @@
 ---
 description: Implements code changes from a plan or description. Works in small, reviewable batches and pauses for approval after each one.
 mode: subagent
-model: openai/gpt-5.4-mini
 steps: 25
 permission:
   edit: allow
