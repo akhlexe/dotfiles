@@ -17,6 +17,7 @@ return {
 			"yaml",
 			"make",
 			"toml",
+			"c_sharp",
 
 			------------------------------------------------
 			-- Documentation
@@ -38,6 +39,7 @@ return {
 			------------------------------------------------
 			"javascript",
 			"typescript",
+			"tsx",
 			"json",
 			"html",
 			"css",
