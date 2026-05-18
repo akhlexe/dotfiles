@@ -8,9 +8,13 @@ description: A disciplined, incremental TDD workflow for building features one a
 A personal development workflow for building software incrementally, with full confidence at every step.
 Applies to any language, any project.
 
-This skill is designed to work with two roles:
-- `architect` owns Phase A and Phase B
-- `atomic-executor` owns Phase C
+This skill describes a workflow, not a fixed ownership model.
+
+Typical role split:
+- An orchestration or planning role handles understanding, breakdown, and handoff.
+- An execution role handles one atomic step at a time.
+
+If your harness has named agents for those roles, use them. If not, adapt the workflow to the available roles.
 
 ## When to Use
 
@@ -25,11 +29,11 @@ Activate this skill when:
 
 ### Phase A — Feature Understanding
 
-Owner: `architect`
+Owner: planning or orchestration role
 
 Before writing anything, understand the feature fully.
 
-- Use the `grill-me` skill to discuss the change
+- Use structured questioning if the change is ambiguous or risky
 - Discuss the **what**, **why**, and **edge cases**
 - Ask clarifying questions until nothing is ambiguous
 - **No code, no tests yet**
@@ -43,7 +47,7 @@ Questions to answer before moving on:
 
 ### Phase B — Feature Breakdown
 
-Owner: `architect`
+Owner: planning or orchestration role
 
 Split the feature into atomic steps.
 
@@ -59,13 +63,13 @@ Examples:
 
 Save the step map to persistent memory and validate it before writing any code.
 Do not proceed to Phase C until the saved step map is agreed upon.
-When implementation starts, `architect` should hand off exactly one step at a time to `atomic-executor`.
+When implementation starts, the orchestration role should hand off exactly one step at a time to the execution role.
 
 ---
 
 ### Phase C — The Loop
 
-Owner: `atomic-executor`
+Owner: execution role
 
 Repeat this loop for every atomic step:
 
@@ -76,7 +80,7 @@ Repeat this loop for every atomic step:
 4. VERIFY    → Run build + the full test suite. Confirm GREEN. If not → back to step 3.
 5. SHOW RESULT → Present the implementation outcome and full-suite verification evidence, then wait for explicit user approval before committing.
 6. COMMIT    → After implementation approval, create one conventional commit for this atomic step only.
-7. RETURN    → Stop after the single atomic loop and hand control back to `architect` or the developer.
+7. RETURN    → Stop after the single atomic loop and hand control back to the orchestration role or the developer.
 ```
 
 ---
@@ -93,7 +97,7 @@ Repeat this loop for every atomic step:
 - **Never merge steps.** One loop = one commit = one atomic behavior.
 - **If verify fails** → back to IMPLEMENT (step 3), not back to PLAN (step 1).
 - **Use conventional commits.** The commit message must follow `type(scope): description` when the repository uses that convention.
-- **One handoff, one step.** `architect` hands off one atomic step at a time; `atomic-executor` does not pull in future steps.
+- **One handoff, one step.** The orchestration role hands off one atomic step at a time; the execution role does not pull in future steps.
 
 ---
 
@@ -103,7 +107,7 @@ A feature is done when:
 - All steps in the step map are committed and green
 - The roadmap or tracking document is updated
 - The milestone is marked complete
-- `architect` confirms there are no remaining agreed steps
+- The orchestration role confirms there are no remaining agreed steps
 
 ---
 

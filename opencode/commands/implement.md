@@ -16,4 +16,4 @@ After completing each batch:
 
 Do not combine multiple steps into one large change.
 
-If the request is part of `atomic-tdd`, stop and use the `atomic` command instead.
+If the handoff explicitly requires a strict one-step atomic TDD loop, stop and use the `atomic` command instead.

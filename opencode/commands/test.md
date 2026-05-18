@@ -1,5 +1,5 @@
 ---
-description: Write and run tests for the specified target, fixing any failures
+description: Write and run tests for the specified target, reporting failures clearly
 agent: tester
 subtask: true
 ---
@@ -11,9 +11,9 @@ Process:
 2. Check existing tests in the project and follow the same conventions
 3. Write tests in batches (one file or module at a time)
 4. Run the tests after each batch and report: pass count, fail count, and any error output
-5. Fix any failures before moving on
+5. Report any production-code failures clearly before moving on
 6. Wait for approval before starting the next batch
 
 Prioritize: happy path → edge cases → error handling → integration points.
 
-If the request is part of a strict `atomic-tdd` loop, stop and use the `atomic` command instead.
+If the handoff explicitly requires a strict one-step atomic TDD loop, stop and use the `atomic` command instead.
