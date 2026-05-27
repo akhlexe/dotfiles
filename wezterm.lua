@@ -10,7 +10,14 @@ local config = {}
 -- │                                   FONT                                       │
 -- └──────────────────────────────────────────────────────────────────────────────┘
 
-config.font = wezterm.font("JetBrains Mono", { weight = "Regular" })
+-- config.font = wezterm.font("JetBrains Mono", { weight = "Regular" })
+-- config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" })
+config.font = wezterm.font_with_fallback({
+	"JetBrainsMono Nerd Font",
+	"JetBrains Mono",
+	"Noto Color Emoji",
+	"Symbols Nerd Font Mono",
+})
 config.font_size = 14
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
@@ -18,7 +25,7 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 -- │                                  WINDOW                                      │
 -- └──────────────────────────────────────────────────────────────────────────────┘
 
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.85
 
 config.window_padding = {
 	left = 0,
@@ -122,7 +129,16 @@ config.colors = {
 -- │                                    WSL                                       │
 -- └──────────────────────────────────────────────────────────────────────────────┘
 
-config.default_domain = "WSL:Ubuntu-24.04"
+-- config.default_domain = "WSL:Ubuntu-24.04"
+config.default_prog = {
+	"wsl.exe",
+	"-d",
+	"Ubuntu-24.04",
+	"--",
+	"bash",
+	"-lc",
+	"cd ~ && tmux new-session -A -s main",
+}
 config.front_end = "OpenGL"
 
 -- ┌──────────────────────────────────────────────────────────────────────────────┐
