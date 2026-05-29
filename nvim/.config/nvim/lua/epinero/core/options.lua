@@ -56,7 +56,7 @@ vim.opt.undofile = true
 vim.opt.completeopt = "menuone,noselect" -- mostly just for cmp
 
 -- Tab line (gentleman prefiere no usarlo... voy a dejarlo por ahora)
-vim.opt.showtabline = 2 -- always show tab line
+-- vim.opt.showtabline = 2 -- always show tab line
 
 -- Backspace behavior
 vim.opt.backspace = "indent,eol,start" -- allow backspacing over indent, end of line, and start of insert
