@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/LucasPickering/slumber/refs/tags/v5.3.0/schemas/config.json
+# ^ This enables schema validation and autocomplete in your editor
+# https://github.com/redhat-developer/yaml-language-server
+
+# For configuration options, see:
+# https://slumber.lucaspickering.me/api/configuration/index.html
+
+input_bindings:
+  submit: [enter]
+
+editor: "nvim"
+
+theme:
+  primary_color: "#89b4fa"
+  primary_text_color: "#1e1e2e"
+  secondary_color: "#cba6f7"
+  success_color: "#a6e3a1"
+  error_color: "#f38ba8"
+  background_color: "#1e1e2e"
+  border_color: "#585b70"
+  disabled_color: "#6c7086"
+  text_color: "#cdd6f4"
+  hint_text_color: "#a6adc8"
+  text_box_background_color: "#181825"
+  alternate_row_background_color: "#313244"
+  alternate_row_text_color: "#cdd6f4"
+  syntax:
+    builtin_color: "#89dceb"
+    comment_color: "#6c7086"
+    escape_color: "#f5c2e7"
+    number_color: "#fab387"
+    special_color: "#94e2d5"
+    string_color: "#a6e3a1"
