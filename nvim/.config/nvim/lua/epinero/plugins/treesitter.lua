@@ -13,6 +13,7 @@ return {
 			"vim",
 			"vimdoc",
 			"bash",
+			"tmux",
 			"dockerfile",
 			"yaml",
 			"make",
