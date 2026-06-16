@@ -1,5 +1,7 @@
 bind j everywhere down
 bind k everywhere up
+bind m articlelist toggle-article-read
+bind m feedlist toggle-article-read
 browser "xdg-open %u"
 
 # Higher-contrast palette for dark terminals.
