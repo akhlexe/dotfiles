@@ -81,6 +81,14 @@
                     "*": "deny"
                 }
             }
+        },
+        "orchestrator": {
+            "model": "openai/gpt-5.4",
+            "permission": {
+                "task": {
+                    "*": "allow"
+                }
+            }
         }
     },
     "default_agent": "plan",
