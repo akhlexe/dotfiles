@@ -1,0 +1,151 @@
+Neovim Configuration Analysis
+==============================
+Generated: 2026-06-30
+Config root: nvim/.config/nvim/
+
+
+== CONFLICTS (keybind collisions) ==
+
+[ ] 1. <C-s> is mapped twice with different purposes
+   - core/keymaps.lua:14 -- Normal mode: save file (<cmd>w<cr>)
+   - plugins/flash-nvim.lua:40 -- Command mode: toggle Flash search
+   - Not a true conflict (different modes: n vs c), but if you hit <C-s> in
+     command mode expecting to save, you'll toggle Flash instead.
+
+[ ] 2. <leader>sb and <leader>fb both open buffers via Telescope
+   - plugins/telescope.lua:92 -- <leader>sb = Search Buffers
+   - plugins/telescope.lua:95 -- <leader>fb = Find Buffers
+   - Pick one namespace (s for search or f for find) and remove the duplicate.
+
+[ ] 3. <leader>sds description is misleading (BUG)
+   - plugins/telescope.lua:110-115 -- The keybind does live_grep in open files,
+     but the desc says "[S]earch LSP [D]ocument [S]ymbols".
+   - You already have <leader>ds mapped to actual document symbols in
+     lsp/on_attach.lua:13.
+   - Fix: change the desc to something like "[S]earch in open files".
+
+[ ] 4. <leader>d prefix delay
+   - core/keymaps.lua:51 -- <leader>d opens floating diagnostic
+   - lsp/on_attach.lua:12 -- <leader>D is type definitions (uppercase, no direct collision)
+   - With timeoutlen = 1000, pressing <leader>d will wait 1 second to see if you'll
+     also press s (for <leader>ds). Consider a less ambiguous mapping for the float.
+
+[ ] 5. <leader>d namespace is crowded (diagnostics + DAP + document symbols)
+   - dap/init.lua:48 -- <leader>dc = DAP continue
+   - dap/init.lua:47 -- <leader>dt = DAP toggle breakpoint
+   - lsp/on_attach.lua:13 -- <leader>ds = Document symbols
+   - core/keymaps.lua:51 -- <leader>d = Floating diagnostic
+   - All share the <leader>d prefix, creating ambiguity and timeout delays.
+
+
+== PROBLEMS (bugs, deprecations, missing config) ==
+
+[ ] 6. Deprecated API: vim.loop should be vim.uv
+   - init.lua:4 -- vim.loop.fs_stat(lazypath)
+   - vim.loop is deprecated since Nvim 0.10. Replace with vim.uv.fs_stat().
+
+[ ] 7. CopyLastError and CopyMessages are duplicates
+   - core/commands.lua:1-4 -- CopyLastError: copies :messages via redir
+   - core/utils.lua:3-6 -- CopyMessages: copies :messages via setreg
+   - Both do nearly the same thing. Keep one, remove the other.
+
+[ ] 8. Telescope live_grep, path_display, git_files at wrong nesting level (BUG)
+   - plugins/telescope.lua:66-84 -- live_grep, path_display, and git_files are
+     placed outside the "pickers" table but inside the top-level setup() call.
+   - live_grep and git_files should be inside pickers = {}.
+   - path_display should be inside defaults = {}.
+   - As written, these options are silently ignored by Telescope.
+
+[ ] 9. Comment.nvim depends on ts_context_commentstring but doesn't declare it
+   - plugins/comment.lua:13,15,18 -- uses require("ts_context_commentstring.utils")
+     and require("ts_context_commentstring.internal")
+   - JoosepAlviste/nvim-ts-context-commentstring is not listed as a dependency.
+   - If the plugin isn't installed separately, this will error in TSX files.
+
+[ ] 10. Neo-tree follow_current_file type mismatch (DEPRECATION)
+   - plugins/neotree.lua:25 -- follow_current_file = true
+   - In Neo-tree v3, this option expects a table: follow_current_file = { enabled = true }
+   - A boolean may silently fail or throw a deprecation warning.
+
+[ ] 11. LSP capabilities don't integrate with blink.cmp
+   - lsp/capabilities.lua:4 -- Returns only vim.lsp.protocol.make_client_capabilities()
+   - blink.cmp provides enhanced completion capabilities that should be merged.
+   - Without this, you may miss snippet support or other completion features.
+   - Fix: merge blink.cmp capabilities via require('blink.cmp').get_lsp_capabilities().
+
+[ ] 12. Oil <C-s> overrides your global save keymap in Oil buffers
+   - plugins/oil.lua:25 -- <C-s> triggers actions.select_split inside Oil
+   - core/keymaps.lua:14 -- <C-s> globally saves the file
+   - In Oil buffers, the buffer-local Oil mapping wins. Likely intentional but
+     worth noting if you ever expect <C-s> to save while in Oil.
+
+
+== IMPROVEMENTS (style, UX, dead code) ==
+
+[ ] 13. Options use mixed API styles inconsistently
+   - core/options.lua mixes vim.wo.*, vim.o.*, and vim.opt.* for similar settings.
+   - In modern Neovim (0.9+), vim.opt is the recommended unified way.
+   - Examples:
+     Line 5:  vim.wo.number = true        -> vim.opt.number = true
+     Line 6:  vim.o.relativenumber = true  -> vim.opt.relativenumber = true
+     Line 8:  vim.wo.signcolumn = "yes"    -> vim.opt.signcolumn = "yes"
+
+[ ] 14. wrap = false but linebreak = true is contradictory (dead config)
+   - core/options.lua:18-19 -- linebreak only takes effect when wrap = true.
+   - Setting linebreak = true while wrap = false has no visible effect.
+
+[ ] 15. Lualine uses 'nord' theme but colorscheme is catppuccin
+   - plugins/lualine.lua:41 -- theme = 'nord'
+   - plugins/colorscheme.lua -- colorscheme is catppuccin mocha
+   - Fix: change to theme = 'catppuccin' or theme = 'auto' for consistency.
+
+[ ] 16. Lualine references fugitive extension but no fugitive plugin is installed
+   - plugins/lualine.lua:64 -- extensions = { 'fugitive' }
+   - You use lazygit, not vim-fugitive. This extension does nothing.
+   - Remove it or replace with a relevant extension.
+
+[ ] 17. Bufferline is disabled but still in the config (clutter)
+   - plugins/bufferline.lua:3 -- enabled = false
+   - Consider removing the file entirely or adding a comment explaining
+     why it's kept for reference.
+
+[ ] 18. which-key has no group registrations
+   - plugins/which-keys.lua -- Only adds the <leader>? keymap.
+   - You have many logical groups (<leader>g for git, <leader>s for search,
+     <leader>d for debug/diagnostics, <leader>r for refactor) but none are
+     registered with which-key.
+   - Adding group names makes the which-key popup much more informative.
+   - Example:
+     require("which-key").add({
+       { "<leader>f", group = "Find" },
+       { "<leader>g", group = "Git" },
+       { "<leader>s", group = "Search" },
+       { "<leader>d", group = "Debug/Diagnostics" },
+       { "<leader>r", group = "Refactor" },
+       { "<leader>t", group = "Tabs/Toggle" },
+       { "<leader>w", group = "Workspace" },
+       { "<leader>c", group = "Code" },
+     })
+
+[ ] 19. <leader>f format has timeout delay with <leader>ff, fg, fb, fh
+   - plugins/autoformatting.lua:7 -- <leader>f formats the buffer
+   - plugins/telescope.lua:93-96 -- <leader>ff, <leader>fg, <leader>fb, <leader>fh
+   - Pressing <leader>f always waits (timeoutlen=1000ms) to see if another
+     character follows. This makes formatting feel sluggish.
+   - Fix: remap format to something like <leader>cf (code format) or <leader>bf
+     (buffer format) to avoid the prefix collision.
+
+[ ] 20. Missing desc on many core keymaps
+   - core/keymaps.lua -- <C-s>, <C-q>, <S-l>, <S-h>, <leader>x, <leader>b,
+     <leader>sn, all tab mappings, and indent mappings have no desc field.
+   - which-key can't display them meaningfully without descriptions.
+   - Fix: add { desc = "..." } to each mapping.
+
+[ ] 21. <leader>q for diagnostic loclist uses a common "quit" key
+   - core/keymaps.lua:52 -- <leader>q = vim.diagnostic.setloclist
+   - Many configs use <leader>q for quit-all or close-buffer.
+   - Not a bug, but worth considering if you ever want <leader>q for quitting.
+
+[ ] 22. Lualine typo: "alwasys_divide_middle" (harmless but sloppy)
+   - plugins/lualine.lua:46 -- should be "always_divide_middle"
+   - Likely silently ignored by lualine since it's not a recognized option.
