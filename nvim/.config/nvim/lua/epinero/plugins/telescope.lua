@@ -106,12 +106,12 @@ return {
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" }) -- Resume previous search
 
-		vim.keymap.set("n", "<leader>sds", function()
+		vim.keymap.set("n", "<leader>fo", function()
 			builtin.live_grep({
 				grep_open_files = true,
 				prompt_title = "Live Grep in Open Files",
 			})
-		end, { desc = "[S]earch LSP [D]ocument [S]ymbols" })
+		end, { desc = "[F]ind in [O]pen files" })
 		vim.keymap.set("n", "<leader>/", function()
 			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 				previewer = false,

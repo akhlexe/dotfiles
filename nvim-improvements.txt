@@ -12,12 +12,12 @@ Config root: nvim/.config/nvim/
    - Not a true conflict (different modes: n vs c), but if you hit <C-s> in
      command mode expecting to save, you'll toggle Flash instead.
 
-[x] 2. <leader>sb and <leader>fb both open buffers via Telescope
+[x] 2. <leader>sb and <leader>fb both open buffers via Telescope (removed <leader>sb, kept <leader>fb)
    - plugins/telescope.lua:92 -- <leader>sb = Search Buffers
    - plugins/telescope.lua:95 -- <leader>fb = Find Buffers
    - Pick one namespace (s for search or f for find) and remove the duplicate.
 
-[ ] 3. <leader>sds description is misleading (BUG)
+[x] 3. <leader>sds description is misleading (BUG) (changed to <leader>fo with desc "[F]ind in [O]pen files")
    - plugins/telescope.lua:110-115 -- The keybind does live_grep in open files,
      but the desc says "[S]earch LSP [D]ocument [S]ymbols".
    - You already have <leader>ds mapped to actual document symbols in
