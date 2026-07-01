@@ -16,7 +16,6 @@ vim.opt.autoindent = true -- copy indent from current line when starting a new l
 
 -- Wrapping
 vim.opt.wrap = false -- disable line wrapping
-vim.opt.linebreak = true -- wrap on word boundary
 
 -- UI
 vim.opt.cursorline = true

@@ -90,7 +90,7 @@ Config root: nvim/.config/nvim/
      Line 6:  vim.o.relativenumber = true  -> vim.opt.relativenumber = true
      Line 8:  vim.wo.signcolumn = "yes"    -> vim.opt.signcolumn = "yes"
 
-[ ] 14. wrap = false but linebreak = true is contradictory (dead config)
+[x] 14. wrap = false but linebreak = true is contradictory (dead config) (removed linebreak)
    - core/options.lua:18-19 -- linebreak only takes effect when wrap = true.
    - Setting linebreak = true while wrap = false has no visible effect.
 
