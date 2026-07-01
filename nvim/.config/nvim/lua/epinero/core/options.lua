@@ -2,10 +2,10 @@
 vim.g.have_nerd_font = true
 
 -- Line numbers
-vim.wo.number = true
-vim.o.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.numberwidth = 4 -- set number column width to 4
-vim.wo.signcolumn = "yes" -- always show sign column
+vim.opt.signcolumn = "yes" -- always show sign column
 
 -- 2-space identation
 vim.opt.tabstop = 4 -- how many spaces a tab count for

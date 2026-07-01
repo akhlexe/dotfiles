@@ -82,7 +82,7 @@ Config root: nvim/.config/nvim/
 
 == IMPROVEMENTS (style, UX, dead code) ==
 
-[ ] 13. Options use mixed API styles inconsistently
+[x] 13. Options use mixed API styles inconsistently
    - core/options.lua mixes vim.wo.*, vim.o.*, and vim.opt.* for similar settings.
    - In modern Neovim (0.9+), vim.opt is the recommended unified way.
    - Examples:
