@@ -6,7 +6,7 @@ Config root: nvim/.config/nvim/
 
 == CONFLICTS (keybind collisions) ==
 
-[ ] 1. <C-s> is mapped twice with different purposes
+[x] 1. <C-s> is mapped twice with different purposes
    - core/keymaps.lua:14 -- Normal mode: save file (<cmd>w<cr>)
    - plugins/flash-nvim.lua:40 -- Command mode: toggle Flash search
    - Not a true conflict (different modes: n vs c), but if you hit <C-s> in
@@ -67,7 +67,7 @@ Config root: nvim/.config/nvim/
    - In Neo-tree v3, this option expects a table: follow_current_file = { enabled = true }
    - A boolean may silently fail or throw a deprecation warning.
 
-[ ] 11. LSP capabilities don't integrate with blink.cmp
+[x] 11. LSP capabilities don't integrate with blink.cmp (merged blink.cmp capabilities in lsp/capabilities.lua)
    - lsp/capabilities.lua:4 -- Returns only vim.lsp.protocol.make_client_capabilities()
    - blink.cmp provides enhanced completion capabilities that should be merged.
    - Without this, you may miss snippet support or other completion features.
