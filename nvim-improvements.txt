@@ -99,17 +99,17 @@ Config root: nvim/.config/nvim/
    - plugins/colorscheme.lua -- colorscheme is catppuccin mocha
    - Fix: change to theme = 'catppuccin' or theme = 'auto' for consistency.
 
-[ ] 16. Lualine references fugitive extension but no fugitive plugin is installed
+[x] 16. Lualine references fugitive extension but no fugitive plugin is installed
    - plugins/lualine.lua:64 -- extensions = { 'fugitive' }
    - You use lazygit, not vim-fugitive. This extension does nothing.
    - Remove it or replace with a relevant extension.
 
-[ ] 17. Bufferline is disabled but still in the config (clutter)
+[x] 17. Bufferline is disabled but still in the config (clutter)
    - plugins/bufferline.lua:3 -- enabled = false
    - Consider removing the file entirely or adding a comment explaining
      why it's kept for reference.
 
-[ ] 18. which-key has no group registrations
+[x] 18. which-key has no group registrations
    - plugins/which-keys.lua -- Only adds the <leader>? keymap.
    - You have many logical groups (<leader>g for git, <leader>s for search,
      <leader>d for debug/diagnostics, <leader>r for refactor) but none are
