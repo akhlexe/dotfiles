@@ -49,7 +49,7 @@ Config root: nvim/.config/nvim/
    - core/utils.lua:3-6 -- CopyMessages: copies :messages via setreg
    - Both do nearly the same thing. Keep one, remove the other.
 
-[ ] 8. Telescope live_grep, path_display, git_files at wrong nesting level (BUG)
+[x] 8. Telescope live_grep, path_display, git_files at wrong nesting level (BUG)
    - plugins/telescope.lua:66-84 -- live_grep, path_display, and git_files are
      placed outside the "pickers" table but inside the top-level setup() call.
    - live_grep and git_files should be inside pickers = {}.

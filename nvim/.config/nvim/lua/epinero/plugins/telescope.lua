@@ -39,6 +39,11 @@ return {
 						["q"] = actions.close,
 					},
 				},
+				path_display = {
+					filename_first = {
+						reverse_directories = false,
+					},
+				},
 			},
 			pickers = {
 				find_files = {
@@ -46,7 +51,7 @@ return {
 					hidden = true,
 				},
 				buffers = {
-					initial_mode = "normal",
+					initial_mode = "insert",
 					sort_lastused = true,
 					-- sort_mru = true,
 					mappings = {
@@ -62,25 +67,20 @@ return {
 				oldfiles = {
 					initial_mode = "normal",
 				},
-			},
-			live_grep = {
-				file_ignore_patterns = { "node_modules", ".git", ".venv" },
-				additional_args = function(_)
-					return { "--hidden" }
-				end,
-			},
-			path_display = {
-				filename_first = {
-					reverse_directories = false,
+				live_grep = {
+					file_ignore_patterns = { "node_modules", ".git", ".venv" },
+					additional_args = function(_)
+						return { "--hidden" }
+					end,
+				},
+				git_files = {
+					previewer = false,
 				},
 			},
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
 				},
-			},
-			git_files = {
-				previewer = false,
 			},
 		})
 
