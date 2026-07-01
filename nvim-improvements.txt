@@ -73,7 +73,7 @@ Config root: nvim/.config/nvim/
    - Without this, you may miss snippet support or other completion features.
    - Fix: merge blink.cmp capabilities via require('blink.cmp').get_lsp_capabilities().
 
-[ ] 12. Oil <C-s> overrides your global save keymap in Oil buffers
+[x] 12. Oil <C-s> overrides your global save keymap in Oil buffers (removed <C-s> save mapping to avoid conflict)
    - plugins/oil.lua:25 -- <C-s> triggers actions.select_split inside Oil
    - core/keymaps.lua:14 -- <C-s> globally saves the file
    - In Oil buffers, the buffer-local Oil mapping wins. Likely intentional but

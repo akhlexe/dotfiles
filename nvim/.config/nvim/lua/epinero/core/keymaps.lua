@@ -10,9 +10,6 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- For conciseness
 local opts = { noremap = true, silent = true }
 
--- save file
-vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", opts)
-
 -- save file without auto formatting.
 vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w<cr>", opts)
 
