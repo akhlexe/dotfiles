@@ -40,7 +40,7 @@ Config root: nvim/.config/nvim/
 
 == PROBLEMS (bugs, deprecations, missing config) ==
 
-[ ] 6. Deprecated API: vim.loop should be vim.uv
+[x] 6. Deprecated API: vim.loop should be vim.uv
    - init.lua:4 -- vim.loop.fs_stat(lazypath)
    - vim.loop is deprecated since Nvim 0.10. Replace with vim.uv.fs_stat().
 
