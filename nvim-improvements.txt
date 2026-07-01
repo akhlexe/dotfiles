@@ -62,7 +62,7 @@ Config root: nvim/.config/nvim/
    - JoosepAlviste/nvim-ts-context-commentstring is not listed as a dependency.
    - If the plugin isn't installed separately, this will error in TSX files.
 
-[ ] 10. Neo-tree follow_current_file type mismatch (DEPRECATION)
+[x] 10. Neo-tree follow_current_file type mismatch (DEPRECATION)
    - plugins/neotree.lua:25 -- follow_current_file = true
    - In Neo-tree v3, this option expects a table: follow_current_file = { enabled = true }
    - A boolean may silently fail or throw a deprecation warning.
