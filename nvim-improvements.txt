@@ -12,7 +12,7 @@ Config root: nvim/.config/nvim/
    - Not a true conflict (different modes: n vs c), but if you hit <C-s> in
      command mode expecting to save, you'll toggle Flash instead.
 
-[ ] 2. <leader>sb and <leader>fb both open buffers via Telescope
+[x] 2. <leader>sb and <leader>fb both open buffers via Telescope
    - plugins/telescope.lua:92 -- <leader>sb = Search Buffers
    - plugins/telescope.lua:95 -- <leader>fb = Find Buffers
    - Pick one namespace (s for search or f for find) and remove the duplicate.
