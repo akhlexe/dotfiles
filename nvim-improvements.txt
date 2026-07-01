@@ -24,13 +24,13 @@ Config root: nvim/.config/nvim/
      lsp/on_attach.lua:13.
    - Fix: change the desc to something like "[S]earch in open files".
 
-[ ] 4. <leader>d prefix delay
+[x] 4. <leader>d prefix delay (moved diagnostic float to <leader>cd)
    - core/keymaps.lua:51 -- <leader>d opens floating diagnostic
    - lsp/on_attach.lua:12 -- <leader>D is type definitions (uppercase, no direct collision)
    - With timeoutlen = 1000, pressing <leader>d will wait 1 second to see if you'll
      also press s (for <leader>ds). Consider a less ambiguous mapping for the float.
 
-[ ] 5. <leader>d namespace is crowded (diagnostics + DAP + document symbols)
+[x] 5. <leader>d namespace is crowded (diagnostics + DAP + document symbols) (resolved: diagnostic float to <leader>cd, document symbols to <leader>fs)
    - dap/init.lua:48 -- <leader>dc = DAP continue
    - dap/init.lua:47 -- <leader>dt = DAP toggle breakpoint
    - lsp/on_attach.lua:13 -- <leader>ds = Document symbols
