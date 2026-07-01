@@ -16,7 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("epinero.core.options")
 require("epinero.core.keymaps")
-require("epinero.core.commands")
 require("epinero.core.utils")
 
 require("lazy").setup({

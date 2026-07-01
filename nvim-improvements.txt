@@ -44,7 +44,7 @@ Config root: nvim/.config/nvim/
    - init.lua:4 -- vim.loop.fs_stat(lazypath)
    - vim.loop is deprecated since Nvim 0.10. Replace with vim.uv.fs_stat().
 
-[ ] 7. CopyLastError and CopyMessages are duplicates
+[x] 7. CopyLastError and CopyMessages are duplicates (removed commands.lua, kept CopyMessages in utils.lua)
    - core/commands.lua:1-4 -- CopyLastError: copies :messages via redir
    - core/utils.lua:3-6 -- CopyMessages: copies :messages via setreg
    - Both do nearly the same thing. Keep one, remove the other.
