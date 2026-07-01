@@ -94,7 +94,7 @@ Config root: nvim/.config/nvim/
    - core/options.lua:18-19 -- linebreak only takes effect when wrap = true.
    - Setting linebreak = true while wrap = false has no visible effect.
 
-[ ] 15. Lualine uses 'nord' theme but colorscheme is catppuccin
+[x] 15. Lualine uses 'nord' theme but colorscheme is catppuccin (changed to 'auto')
    - plugins/lualine.lua:41 -- theme = 'nord'
    - plugins/colorscheme.lua -- colorscheme is catppuccin mocha
    - Fix: change to theme = 'catppuccin' or theme = 'auto' for consistency.
