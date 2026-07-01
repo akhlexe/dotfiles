@@ -56,7 +56,7 @@ Config root: nvim/.config/nvim/
    - path_display should be inside defaults = {}.
    - As written, these options are silently ignored by Telescope.
 
-[ ] 9. Comment.nvim depends on ts_context_commentstring but doesn't declare it
+[x] 9. Comment.nvim depends on ts_context_commentstring but doesn't declare it
    - plugins/comment.lua:13,15,18 -- uses require("ts_context_commentstring.utils")
      and require("ts_context_commentstring.internal")
    - JoosepAlviste/nvim-ts-context-commentstring is not listed as a dependency.

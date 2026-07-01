@@ -24,6 +24,9 @@ end
 
 return {
 	"numToStr/Comment.nvim",
+	dependencies = {
+		"JoosepAlviste/nvim-ts-context-commentstring",
+	},
 	config = function()
 		require("Comment").setup({
 			pre_hook = calculate_tsx_comment,
