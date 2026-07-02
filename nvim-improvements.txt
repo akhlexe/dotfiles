@@ -127,7 +127,7 @@ Config root: nvim/.config/nvim/
        { "<leader>c", group = "Code" },
      })
 
-[ ] 19. <leader>f format has timeout delay with <leader>ff, fg, fb, fh
+[x] 19. <leader>f format has timeout delay with <leader>ff, fg, fb, fh
    - plugins/autoformatting.lua:7 -- <leader>f formats the buffer
    - plugins/telescope.lua:93-96 -- <leader>ff, <leader>fg, <leader>fb, <leader>fh
    - Pressing <leader>f always waits (timeoutlen=1000ms) to see if another
@@ -135,7 +135,7 @@ Config root: nvim/.config/nvim/
    - Fix: remap format to something like <leader>cf (code format) or <leader>bf
      (buffer format) to avoid the prefix collision.
 
-[ ] 20. Missing desc on many core keymaps
+[x] 20. Missing desc on many core keymaps
    - core/keymaps.lua -- <C-s>, <C-q>, <S-l>, <S-h>, <leader>x, <leader>b,
      <leader>sn, all tab mappings, and indent mappings have no desc field.
    - which-key can't display them meaningfully without descriptions.
