@@ -42,7 +42,7 @@ return {
         section_separators = { left = '', right = '' },
         component_separators = { left = '', right = '' },
         disabled_filetypes = { 'alpha', 'neo-tree'},
-        alwasys_divide_middle = true,
+        always_divide_middle = true,
       },
       sections = {
         lualine_a = { mode },
