@@ -7,7 +7,7 @@ function M.setup()
 			prefix = "●",
 		},
 		signs = true,
-		underline = true,
+		underline = false,
 		severity_sort = true,
 		float = {
 			border = "rounded",
