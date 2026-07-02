@@ -1,0 +1,282 @@
+Neovim Configuration Review - Improvements & Fixes
+====================================================
+
+Architecture Overview:
+- Clean modular structure: init.lua -> core/ (options, keymaps, utils) + plugins/
+- Modern Neovim 0.11+ native LSP API (vim.lsp.config/vim.lsp.enable)
+- LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
+
+======================================================================
+BUGS (Fix These First)
+======================================================================
+
+1. lsp-detach augroup cleared on every buffer attach
+   File: lua/epinero/lsp/on_attach.lua
+   Problem: vim.api.nvim_create_augroup("lsp-detach", { clear = true }) wipes
+   previously registered detach handlers on every new buffer attach. If 2+ buffers
+   are open, only the last one gets proper cleanup - earlier buffers leak highlight
+   autocmds.
+   Fix: Use { clear = false } or create the group once outside the callback.
+
+2. mason-tool-installer receives lspconfig names, not Mason package names
+   File: lua/epinero/lsp/init.lua
+   Problem: vim.tbl_keys(servers) gives names like "ts_ls", "lua_ls" but Mason
+   expects "typescript-language-server", "lua-language-server". Installs silently fail.
+   Fix: Use a mapping table or switch to mason-lspconfig.nvim's ensure_installed
+   (the plugin is declared as dependency but never configured).
+
+3. expr = true on refactoring keymaps
+   File: lua/epinero/plugins/refactoring.lua
+   Problem: All 7 refactoring keymaps use { expr = true }, but the functions call
+   require("refactoring").refactor(...) for side effects and return nil. expr = true
+   means Neovim expects a string of keys to execute - returning nil is incorrect.
+   Fix: Remove expr = true from all refactoring keymaps.
+
+4. dap/cs.lua - Hardcoded net8.0 and *.API.dll
+   File: lua/epinero/dap/cs.lua
+   Problem: Pattern uses "/src/**/bin/Debug/net8.0/*.API.dll" which breaks on
+   .NET 9+ and excludes non-API projects. The ":h:h:h:h" path calculation is fragile.
+   Fix: Use net* and *.dll wildcards, fix directory calculation.
+
+======================================================================
+DEPRECATED APIs
+======================================================================
+
+5. client:supports_method(method, bufnr) - bufnr arg removed in Nvim 0.11
+   File: lua/epinero/lsp/on_attach.lua
+   Problem: Second bufnr argument was deprecated in 0.10 and removed in 0.11.
+   Fix: Drop the second argument from both supports_method calls.
+
+6. ts_context_commentstring uses old internal API
+   File: lua/epinero/plugins/comment.lua
+   Problem: Manual require("ts_context_commentstring.internal").calculate_commentstring(...)
+   is outdated and only handles typescriptreact (misses javascriptreact, Vue, etc).
+   Fix: Replace with:
+     pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+
+======================================================================
+DESIGN & BEST PRACTICE ISSUES
+======================================================================
+
+7. mapleader set inside keymaps.lua instead of top of init.lua
+   File: init.lua, lua/epinero/core/keymaps.lua
+   Problem: Plugins loaded by lazy.nvim may read mapleader before keymaps.lua executes.
+   Fix: Move vim.g.mapleader and vim.g.maplocalleader to the very top of init.lua,
+   before any require() calls.
+
+8. Colorscheme missing priority = 1000
+   File: lua/epinero/plugins/colorscheme.lua
+   Problem: Without priority = 1000, lazy = false, catppuccin may load after other
+   plugins causing highlight flicker on startup.
+   Fix: Add priority = 1000, lazy = false to the plugin spec.
+
+9. Neo-tree and DAP have no lazy-loading triggers
+   Files: lua/epinero/plugins/neotree.lua, lua/epinero/plugins/debugging.lua
+   Problem: Both load eagerly at startup, adding to startup time.
+   Fix: Neo-tree should use cmd = "Neotree" + keys spec.
+   DAP should gate on keys or cmd (e.g., keys = { "<F5>", "<leader>d" }).
+
+10. mason-lspconfig.nvim declared as dependency but never called
+    File: lua/epinero/plugins/lsp.lua
+    Problem: setup() is never invoked, providing zero value.
+    Fix: Either remove it or use it for name-mapping/auto-install.
+
+======================================================================
+KEYBINDING CONFLICTS & CONFUSION
+======================================================================
+
+11. <C-l> conflict
+    Files: plugins/telescope.lua, plugins/copilot.lua
+    Telescope uses <C-l> for select_default (in picker insert mode)
+    Copilot uses <C-l> for accept suggestion (global insert mode)
+    They're scoped differently but use same key for opposite actions.
+
+12. s (normal mode) - Flash shadows Neo-tree
+    Files: plugins/flash-nvim.lua, plugins/neotree.lua
+    Flash maps s in n/x/o modes globally. In Neo-tree buffer, pressing s
+    triggers Flash jump instead of Neo-tree's "open in split".
+
+13. <leader>sn in "Search" group
+    Files: core/keymaps.lua, plugins/which-keys.lua
+    "Save No format" sits inside the "Search" which-key group (misleading).
+    Consider moving to <leader>wn or another prefix.
+
+14. <leader>rn in "Refactor" group
+    Files: lsp/on_attach.lua, plugins/which-keys.lua
+    LSP rename lives inside the "Refactor" group (semantically confusing
+    since it's LSP, not refactoring.nvim).
+
+15. <leader>ca description inconsistent
+    File: lua/epinero/lsp/on_attach.lua
+    Normal mode shows "LSP: [C]ode [A]ction", visual mode shows "Code Action".
+    Make descriptions consistent.
+
+======================================================================
+MISSING CONFIGURATIONS (HIGH VALUE)
+======================================================================
+
+16. jsonls and yamlls - No schemas
+    Files: lua/epinero/lsp/servers/jsonls.lua, yamlls.lua
+    Without schemastore.nvim, these provide almost no completion for config files.
+    Fix: Add b0o/schemastore.nvim plugin and wire schemas:
+      -- jsonls:
+      settings = {
+        json = {
+          schemas = require("schemastore").json.schemas(),
+          validate = { enable = true },
+        },
+      }
+      -- yamlls:
+      settings = {
+        yaml = {
+          schemaStore = { enable = false, url = "" },
+          schemas = require("schemastore").yaml.schemas(),
+          validate = true, hover = true, completion = true,
+          keyOrdering = false,
+        },
+      }
+
+17. autoformatting.lua - Only lua has a formatter
+    File: lua/epinero/plugins/autoformatting.lua
+    Problem: No conform formatters for TS/JS/CSS/HTML/Go/YAML.
+    Fix: Add at minimum:
+      formatters_by_ft = {
+        lua = { "stylua" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+        css = { "prettierd", "prettier", stop_after_first = true },
+        html = { "prettierd", "prettier", stop_after_first = true },
+        json = { "prettierd", "prettier", stop_after_first = true },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+        go = { "goimports", "gofumpt" },
+      }
+
+18. eslint.lua - Missing workingDirectories
+    File: lua/epinero/lsp/servers/eslint.lua
+    Fix: Add settings = { workingDirectories = { mode = "auto" } }
+    Essential for monorepo setups.
+
+19. gopls.lua - Missing useful analyses
+    File: lua/epinero/lsp/servers/gopls.lua
+    Add: unusedvariable = true, shadow = true, unusedwrite = true
+    Add codelenses block (gc_details, run_govulncheck, generate, test)
+    Add hints block for inlay hints (since <leader>th toggle exists)
+
+20. ts_ls.lua - Empty, no inlay hints
+    File: lua/epinero/lsp/servers/ts_ls.lua
+    Add settings for inlay hints:
+      settings = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+          },
+        },
+        javascript = { ... same ... },
+      }
+
+21. cssls.lua - Missing unknownAtRules ignore
+    File: lua/epinero/lsp/servers/cssls.lua
+    If using Tailwind, add:
+      settings = {
+        css = { validate = true, lint = { unknownAtRules = "ignore" } },
+        scss = { validate = true, lint = { unknownAtRules = "ignore" } },
+      }
+
+======================================================================
+PERFORMANCE
+======================================================================
+
+22. lua_ls.lua - library = vim.api.nvim_get_runtime_file("", true)
+    File: lua/epinero/lsp/servers/lua_ls.lua
+    Problem: Indexes entire runtime on startup (slow in large plugin trees).
+    Fix: Use folke/lazydev.nvim (replaces neodev.nvim) or reduce to:
+      library = { vim.env.VIMRUNTIME }
+
+23. Neo-tree loads eagerly (no event/cmd/keys trigger)
+    File: lua/epinero/plugins/neotree.lua
+    Fix: Add cmd = "Neotree", keys = { { "<leader>e", ... } }
+
+24. DAP loads eagerly
+    File: lua/epinero/plugins/debugging.lua
+    Fix: Gate on keys = { "<F5>", ... } or cmd = { "DapContinue", "DapToggleBreakpoint" }
+
+25. require("telescope.builtin") called per-buffer-attach
+    File: lua/epinero/lsp/on_attach.lua
+    Fix: Wrap in closures:
+      map("gd", function() require("telescope.builtin").lsp_definitions() end, ...)
+
+======================================================================
+STYLE & MISCELLANEOUS
+======================================================================
+
+26. Inconsistent indentation: some files use 2-space, others use tabs
+27. vim.opt.encoding = "utf-8" is a no-op in Neovim (always utf-8) - remove
+28. opts variable in keymaps.lua defined but only used once - use consistently or drop
+29. Comment says "2-space indentation" but config uses 4-space - fix comment
+30. Copilot shows inline ghost text but isn't a blink.cmp source - Tab can feel awkward
+31. <leader>b and <leader>x buffer maps have no which-key group
+32. <leader>gh (gitsigns hunk actions) has no which-key sub-group label
+33. neotree.lua has enable_git_status = false - free feature, worth enabling
+34. 9 server files are just "return {}" - could be inlined in servers/init.lua
+35. telescope.lua uses branch = "master" instead of stable 0.1.x tag
+36. diagnostics.lua underline = false - intentional? add comment if so
+
+======================================================================
+KEYBIND IDEAS
+======================================================================
+
+<leader>dB  - Conditional breakpoint (vim.fn.input("Condition: "))
+<leader>du  - Toggle DAP UI manually (can't close UI without killing session)
+<leader>uh  - Toggle inlay hints (global, more discoverable than <leader>th)
+<leader>ud  - Toggle diagnostics (quick way to hide noise temporarily)
+<leader>uf  - Toggle autoformat (useful in messy files)
+<leader>xq  - Quickfix list (common workflow)
+<C-d>/<C-u> + zz - Centered scrolling (less disorienting)
+gx          - Open URL under cursor (ensure it works in your setup)
+<leader>gp  - Git push (if using lazygit less frequently)
+]q / [q     - Next/prev quickfix item
+]t / [t     - Next/prev todo comment (if using todo-comments.nvim)
+
+======================================================================
+SUGGESTED PLUGINS TO CONSIDER
+======================================================================
+
+b0o/schemastore.nvim       - JSON/YAML schema completion (high value)
+folke/lazydev.nvim         - Better lua_ls workspace config (replaces neodev)
+folke/trouble.nvim         - Better diagnostics list than loclist
+echasnovski/mini.bufremove - Safer buffer deletion (preserves window layout)
+lewis6991/satellite.nvim   - Scrollbar with diagnostics/git marks
+folke/todo-comments.nvim   - Highlight/search TODO/FIXME/HACK comments
+nvim-dap-vscode-js         - DAP for TypeScript/JavaScript debugging
+
+======================================================================
+MISSING LANGUAGE SERVERS TO CONSIDER
+======================================================================
+
+tailwindcss  - If using Tailwind: class completion, hover docs
+marksman     - Markdown note-taking / docs
+taplo        - TOML config files (common in Go, Rust)
+typos_lsp    - Spell checking in code (all filetypes)
+sqls         - Replaces sqlls, supports live DB connections
+vtsls        - Faster alternative to ts_ls, Vue-compatible
+
+======================================================================
+PRIORITY FIX ORDER
+======================================================================
+
+ 1. Remove expr = true from refactoring keymaps (correctness bug)
+ 2. Fix lsp-detach augroup clearing (multi-buffer bug)
+ 3. Fix mason-tool-installer name mapping (silent install failures)
+ 4. Move mapleader to top of init.lua
+ 5. Add priority = 1000 to colorscheme
+ 6. Fix deprecated supports_method call
+ 7. Update comment.lua TSX integration
+ 8. Fix dap/cs.lua hardcoded paths
+ 9. Add schemastore.nvim for jsonls/yamlls
+10. Add formatters to conform for TS/JS/CSS
