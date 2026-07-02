@@ -1,6 +1,8 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+		-- Load completion before LSP setup so server capabilities include Blink support.
+		"saghen/blink.cmp",
 		-- Automatically install LSPs and related tools to stdpath for Neovim
 		-- Mason must be loaded before its dependents so we need to set it up here.
 		-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
