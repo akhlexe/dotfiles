@@ -19,6 +19,9 @@ return {
 
 		-- Useful status updates for LSP.
 		{ "j-hui/fidget.nvim", opts = {} },
+
+		-- Provides JSON and YAML schema sets for jsonls and yamlls.
+		{ "b0o/schemastore.nvim", lazy = true },
 	},
 	config = function()
 		require("epinero.lsp").setup()
