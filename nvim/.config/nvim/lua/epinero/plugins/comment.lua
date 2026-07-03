@@ -27,6 +27,12 @@ return {
 	dependencies = {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	},
+	keys = {
+		{ "gc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
+		{ "gcc", desc = "Comment toggle current line" },
+		{ "gb", mode = { "n", "v" }, desc = "Comment toggle blockwise" },
+		{ "gbc", desc = "Comment toggle current block" },
+	},
 	config = function()
 		require("Comment").setup({
 			pre_hook = calculate_tsx_comment,

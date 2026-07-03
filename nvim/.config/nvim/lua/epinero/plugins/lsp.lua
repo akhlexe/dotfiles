@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		-- Load completion before LSP setup so server capabilities include Blink support.
 		"saghen/blink.cmp",

@@ -5,38 +5,16 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 	},
+	keys = {
+		{ "<leader>re", function() require("refactoring").refactor("Extract Function") end, mode = { "n", "x" }, desc = "Refactor: Extract function" },
+		{ "<leader>rf", function() require("refactoring").refactor("Extract Function To File") end, mode = { "n", "x" }, desc = "Refactor: Extract function to file" },
+		{ "<leader>rv", function() require("refactoring").refactor("Extract Variable") end, mode = { "n", "x" }, desc = "Refactor: Extract variable" },
+		{ "<leader>rI", function() require("refactoring").refactor("Inline Function") end, mode = { "n", "x" }, desc = "Refactor: Inline function" },
+		{ "<leader>ri", function() require("refactoring").refactor("Inline Variable") end, mode = { "n", "x" }, desc = "Refactor: Inline variable" },
+		{ "<leader>rbb", function() require("refactoring").refactor("Extract Block") end, mode = { "n", "x" }, desc = "Refactor: Extract block" },
+		{ "<leader>rbf", function() require("refactoring").refactor("Extract Block To File") end, mode = { "n", "x" }, desc = "Refactor: Extract block to file" },
+	},
 	config = function()
-		local refactoring = require("refactoring")
-
-		refactoring.setup({})
-
-		-- keymaps
-		vim.keymap.set({ "n", "x" }, "<leader>re", function()
-			refactoring.refactor("Extract Function")
-		end, { desc = "Refactor: Extract function" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>rf", function()
-			refactoring.refactor("Extract Function To File")
-		end, { desc = "Refactor: Extract function to file" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>rv", function()
-			refactoring.refactor("Extract Variable")
-		end, { desc = "Refactor: Extract variable" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>rI", function()
-			refactoring.refactor("Inline Function")
-		end, { desc = "Refactor: Inline function" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>ri", function()
-			refactoring.refactor("Inline Variable")
-		end, { desc = "Refactor: Inline variable" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>rbb", function()
-			refactoring.refactor("Extract Block")
-		end, { desc = "Refactor: Extract block" })
-
-		vim.keymap.set({ "n", "x" }, "<leader>rbf", function()
-			refactoring.refactor("Extract Block To File")
-		end, { desc = "Refactor: Extract block to file" })
+		require("refactoring").setup({})
 	end,
 }

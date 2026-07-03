@@ -13,9 +13,26 @@ return {
 		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-tree/nvim-web-devicons",
 	},
+	cmd = "Telescope",
+	keys = {
+		{ "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
+		{ "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
+		{ "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+		{ "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Find help" },
+		{ "<leader>fo", function() require("telescope.builtin").live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" }) end, desc = "Find in open files" },
+		{ "<leader>/", function() require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({ previewer = false })) end, desc = "Fuzzy find in current buffer" },
+		{ "<leader>gf", function() require("telescope.builtin").git_files() end, desc = "[G]it [F]iles" },
+		{ "<leader>gc", function() require("telescope.builtin").git_commits() end, desc = "[G]it [C]ommits" },
+		{ "<leader>gcf", function() require("telescope.builtin").git_bcommits() end, desc = "[G]it [C]ommits for current [F]ile" },
+		{ "<leader>gb", function() require("telescope.builtin").git_branches() end, desc = "[G]it [B]ranches" },
+		{ "<leader>gs", function() require("telescope.builtin").git_status() end, desc = "[G]it [S]tatus" },
+		{ "<leader>so", function() require("telescope.builtin").oldfiles() end, desc = "[S]earch [O]ldfiles" },
+		{ "<leader>sm", function() require("telescope.builtin").marks() end, desc = "Search marks" },
+		{ "<leader>sd", function() require("telescope.builtin").diagnostics() end, desc = "[S]earch [D]iagnostics" },
+		{ "<leader>sr", function() require("telescope.builtin").resume() end, desc = "[S]earch [R]esume" },
+	},
 	config = function()
 		local actions = require("telescope.actions")
-		local builtin = require("telescope.builtin")
 
 		require("telescope").setup({
 			defaults = {
@@ -87,35 +104,5 @@ return {
 		-- Enable telescope fzf native, if installed
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
-
-		-- Core Keymaps
-		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-		vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
-		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
-		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
-
-		-- Git keymaps
-		vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "[G]it [F]iles" })
-		vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "[G]it [C]ommits" })
-		vim.keymap.set("n", "<leader>gcf", builtin.git_bcommits, { desc = "[G]it [C]ommits for current [F]ile" })
-		vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "[G]it [B]ranches" })
-		vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "[G]it [S]tatus" })
-
-		vim.keymap.set("n", "<leader>so", builtin.oldfiles, { desc = "[S]earch [O]ldfiles" })
-		vim.keymap.set("n", "<leader>sm", builtin.marks, { desc = "Search marks" })
-		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" }) -- Resume previous search
-
-		vim.keymap.set("n", "<leader>fo", function()
-			builtin.live_grep({
-				grep_open_files = true,
-				prompt_title = "Live Grep in Open Files",
-			})
-		end, { desc = "[F]ind in [O]pen files" })
-		vim.keymap.set("n", "<leader>/", function()
-			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				previewer = false,
-			}))
-		end, { desc = "[/] Fuzzy find in current buffer" })
 	end,
 }
