@@ -6,75 +6,10 @@ Architecture Overview:
 - Modern Neovim 0.11+ native LSP API (vim.lsp.config/vim.lsp.enable)
 - LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
 
-======================================================================
-BUGS (Fix These First)
-======================================================================
-
-1. [completed] lsp-detach augroup cleared on every buffer attach
-   File: lua/epinero/lsp/on_attach.lua
-   Problem: vim.api.nvim_create_augroup("lsp-detach", { clear = true }) wipes
-   previously registered detach handlers on every new buffer attach. If 2+ buffers
-   are open, only the last one gets proper cleanup - earlier buffers leak highlight
-   autocmds.
-   Fix: Use { clear = false } or create the group once outside the callback.
-
-2. [completed] mason-tool-installer receives lspconfig names, not Mason package names
-   File: lua/epinero/lsp/init.lua
-   Problem: vim.tbl_keys(servers) gives names like "ts_ls", "lua_ls" but Mason
-   expects "typescript-language-server", "lua-language-server". Installs silently fail.
-   Fix: Use a mapping table or switch to mason-lspconfig.nvim's ensure_installed
-   (the plugin is declared as dependency but never configured).
-
-3. [completed] expr = true on refactoring keymaps
-   File: lua/epinero/plugins/refactoring.lua
-   Problem: All 7 refactoring keymaps use { expr = true }, but the functions call
-   require("refactoring").refactor(...) for side effects and return nil. expr = true
-   means Neovim expects a string of keys to execute - returning nil is incorrect.
-   Fix: Remove expr = true from all refactoring keymaps.
-
-4. dap/cs.lua - Hardcoded net8.0 and *.API.dll
-   File: lua/epinero/dap/cs.lua
-   Problem: Pattern uses "/src/**/bin/Debug/net8.0/*.API.dll" which breaks on
-   .NET 9+ and excludes non-API projects. The ":h:h:h:h" path calculation is fragile.
-   Fix: Use net* and *.dll wildcards, fix directory calculation.
-
-======================================================================
-DEPRECATED APIs
-======================================================================
-
-5. client:supports_method(method, bufnr) - bufnr arg removed in Nvim 0.11
-   File: lua/epinero/lsp/on_attach.lua
-   Problem: Second bufnr argument was deprecated in 0.10 and removed in 0.11.
-   Fix: Drop the second argument from both supports_method calls.
-
-6. ts_context_commentstring uses old internal API
-   File: lua/epinero/plugins/comment.lua
-   Problem: Manual require("ts_context_commentstring.internal").calculate_commentstring(...)
-   is outdated and only handles typescriptreact (misses javascriptreact, Vue, etc).
-   Fix: Replace with:
-     pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
 
 ======================================================================
 DESIGN & BEST PRACTICE ISSUES
 ======================================================================
-
-7. mapleader set inside keymaps.lua instead of top of init.lua
-   File: init.lua, lua/epinero/core/keymaps.lua
-   Problem: Plugins loaded by lazy.nvim may read mapleader before keymaps.lua executes.
-   Fix: Move vim.g.mapleader and vim.g.maplocalleader to the very top of init.lua,
-   before any require() calls.
-
-8. Colorscheme missing priority = 1000
-   File: lua/epinero/plugins/colorscheme.lua
-   Problem: Without priority = 1000, lazy = false, catppuccin may load after other
-   plugins causing highlight flicker on startup.
-   Fix: Add priority = 1000, lazy = false to the plugin spec.
-
-9. Neo-tree and DAP have no lazy-loading triggers
-   Files: lua/epinero/plugins/neotree.lua, lua/epinero/plugins/debugging.lua
-   Problem: Both load eagerly at startup, adding to startup time.
-   Fix: Neo-tree should use cmd = "Neotree" + keys spec.
-   DAP should gate on keys or cmd (e.g., keys = { "<F5>", "<leader>d" }).
 
 10. mason-lspconfig.nvim declared as dependency but never called
     File: lua/epinero/plugins/lsp.lua
@@ -84,12 +19,6 @@ DESIGN & BEST PRACTICE ISSUES
 ======================================================================
 KEYBINDING CONFLICTS & CONFUSION
 ======================================================================
-
-11. <C-l> conflict
-    Files: plugins/telescope.lua, plugins/copilot.lua
-    Telescope uses <C-l> for select_default (in picker insert mode)
-    Copilot uses <C-l> for accept suggestion (global insert mode)
-    They're scoped differently but use same key for opposite actions.
 
 12. s (normal mode) - Flash shadows Neo-tree
     Files: plugins/flash-nvim.lua, plugins/neotree.lua

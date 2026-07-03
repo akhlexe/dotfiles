@@ -7,6 +7,10 @@ return {
     "nvim-tree/nvim-web-devicons", -- optional, for icons
     "MunifTanjim/nui.nvim",
   },
+  cmd = "Neotree",
+  keys = {
+    { "<leader>e", "<CMD>Neotree toggle<CR>", desc = "Toggle file tree" },
+  },
   config = function()
     local neo_tree = require("neo-tree")
     neo_tree.setup({
@@ -26,8 +30,5 @@ return {
         use_libuv_file_watcher = true,
       },
     })
-
-    -- Keybind to toggle Neotree
-    vim.keymap.set("n", "<leader>e", "<CMD>Neotree toggle<CR>", { noremap = true, silent = true })
   end,
 }
