@@ -1,9 +1,3 @@
--- Set leader key
-vim.g.mapleader = " "
-
--- Latinoamerican keyboard users rejoice
-vim.g.maplocalleader = "+"
-
 -- Disable the spacebar default behavior in Normal and Visual modes
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
