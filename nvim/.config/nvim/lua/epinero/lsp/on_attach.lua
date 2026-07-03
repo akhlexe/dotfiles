@@ -24,7 +24,7 @@ function M.global(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, "[W]orkspace [L]ist Folders")
 
-	vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+	map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", "v")
 	vim.keymap.set("n", "<leader>ci", function()
 		vim.lsp.buf.code_action({
 			context = {

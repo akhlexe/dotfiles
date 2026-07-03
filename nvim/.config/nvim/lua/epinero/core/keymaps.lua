@@ -5,7 +5,7 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 local opts = { noremap = true, silent = true }
 
 -- save file without auto formatting.
-vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w<cr>", { noremap = true, silent = true, desc = "[S]ave [N]o format" })
+vim.keymap.set("n", "<leader>cn", "<cmd>noautocmd w<cr>", { noremap = true, silent = true, desc = "[C]ode [N]o format save" })
 
 -- quit file
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { noremap = true, silent = true, desc = "[Q]uit" })

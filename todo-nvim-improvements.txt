@@ -7,38 +7,17 @@ Architecture Overview:
 - LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
 
 
-======================================================================
-DESIGN & BEST PRACTICE ISSUES
-======================================================================
-
-10. mason-lspconfig.nvim declared as dependency but never called
-    File: lua/epinero/plugins/lsp.lua
-    Problem: setup() is never invoked, providing zero value.
-    Fix: Either remove it or use it for name-mapping/auto-install.
 
 ======================================================================
 KEYBINDING CONFLICTS & CONFUSION
 ======================================================================
 
-12. s (normal mode) - Flash shadows Neo-tree
-    Files: plugins/flash-nvim.lua, plugins/neotree.lua
-    Flash maps s in n/x/o modes globally. In Neo-tree buffer, pressing s
-    triggers Flash jump instead of Neo-tree's "open in split".
-
-13. <leader>sn in "Search" group
-    Files: core/keymaps.lua, plugins/which-keys.lua
-    "Save No format" sits inside the "Search" which-key group (misleading).
-    Consider moving to <leader>wn or another prefix.
 
 14. <leader>rn in "Refactor" group
     Files: lsp/on_attach.lua, plugins/which-keys.lua
     LSP rename lives inside the "Refactor" group (semantically confusing
     since it's LSP, not refactoring.nvim).
 
-15. <leader>ca description inconsistent
-    File: lua/epinero/lsp/on_attach.lua
-    Normal mode shows "LSP: [C]ode [A]ction", visual mode shows "Code Action".
-    Make descriptions consistent.
 
 ======================================================================
 MISSING CONFIGURATIONS (HIGH VALUE)
@@ -126,14 +105,6 @@ PERFORMANCE
     Problem: Indexes entire runtime on startup (slow in large plugin trees).
     Fix: Use folke/lazydev.nvim (replaces neodev.nvim) or reduce to:
       library = { vim.env.VIMRUNTIME }
-
-23. Neo-tree loads eagerly (no event/cmd/keys trigger)
-    File: lua/epinero/plugins/neotree.lua
-    Fix: Add cmd = "Neotree", keys = { { "<leader>e", ... } }
-
-24. DAP loads eagerly
-    File: lua/epinero/plugins/debugging.lua
-    Fix: Gate on keys = { "<F5>", ... } or cmd = { "DapContinue", "DapToggleBreakpoint" }
 
 25. require("telescope.builtin") called per-buffer-attach
     File: lua/epinero/lsp/on_attach.lua
