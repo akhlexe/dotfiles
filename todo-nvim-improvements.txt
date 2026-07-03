@@ -6,44 +6,6 @@ Architecture Overview:
 - Modern Neovim 0.11+ native LSP API (vim.lsp.config/vim.lsp.enable)
 - LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
 
-
-
-
-
-======================================================================
-MISSING CONFIGURATIONS (HIGH VALUE)
-======================================================================
-
-19. gopls.lua - Missing useful analyses
-    File: lua/epinero/lsp/servers/gopls.lua
-    Add: unusedvariable = true, shadow = true, unusedwrite = true
-    Add codelenses block (gc_details, run_govulncheck, generate, test)
-    Add hints block for inlay hints (since <leader>th toggle exists)
-
-20. ts_ls.lua - Empty, no inlay hints
-    File: lua/epinero/lsp/servers/ts_ls.lua
-    Add settings for inlay hints:
-      settings = {
-        typescript = {
-          inlayHints = {
-            includeInlayParameterNameHints = "all",
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-          },
-        },
-        javascript = { ... same ... },
-      }
-
-21. cssls.lua - Missing unknownAtRules ignore
-    File: lua/epinero/lsp/servers/cssls.lua
-    If using Tailwind, add:
-      settings = {
-        css = { validate = true, lint = { unknownAtRules = "ignore" } },
-        scss = { validate = true, lint = { unknownAtRules = "ignore" } },
-      }
-
 ======================================================================
 PERFORMANCE
 ======================================================================
