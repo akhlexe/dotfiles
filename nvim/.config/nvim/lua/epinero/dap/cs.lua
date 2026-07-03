@@ -1,5 +1,11 @@
 local M = {}
 
+local function find_runtimeconfig()
+	local pattern = vim.fn.getcwd() .. "/src/**/bin/{Debug,Release}/net*/*.runtimeconfig.json"
+	local files = vim.fn.glob(pattern, false, true)
+	return files[1]
+end
+
 function M.setup(dap)
 	dap.configurations.cs = {
 		{
@@ -7,18 +13,16 @@ function M.setup(dap)
 			name = "Launch .NET project",
 			request = "launch",
 			cwd = function()
-				local pattern = vim.fn.getcwd() .. "/src/**/bin/Debug/net8.0/*.API.dll"
-				local files = vim.fn.glob(pattern, false, true)
-				if #files > 0 then
-					return vim.fn.fnamemodify(files[1], ":h:h:h:h")
+				local runtimeconfig = find_runtimeconfig()
+				if runtimeconfig then
+					return vim.fn.fnamemodify(runtimeconfig, ":h:h:h:h")
 				end
 				return vim.fn.getcwd()
 			end,
 			program = function()
-				local pattern = vim.fn.getcwd() .. "/src/**/bin/Debug/net8.0/*.API.dll"
-				local files = vim.fn.glob(pattern, false, true)
-				if #files > 0 then
-					return files[1]
+				local runtimeconfig = find_runtimeconfig()
+				if runtimeconfig then
+					return vim.fn.fnamemodify(runtimeconfig, ":r:r") .. ".dll"
 				end
 				return vim.fn.input("Path to dll: ", "", "file")
 			end,
