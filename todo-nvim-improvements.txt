@@ -18,14 +18,14 @@ BUGS (Fix These First)
    autocmds.
    Fix: Use { clear = false } or create the group once outside the callback.
 
-2. mason-tool-installer receives lspconfig names, not Mason package names
+2. [completed] mason-tool-installer receives lspconfig names, not Mason package names
    File: lua/epinero/lsp/init.lua
    Problem: vim.tbl_keys(servers) gives names like "ts_ls", "lua_ls" but Mason
    expects "typescript-language-server", "lua-language-server". Installs silently fail.
    Fix: Use a mapping table or switch to mason-lspconfig.nvim's ensure_installed
    (the plugin is declared as dependency but never configured).
 
-3. expr = true on refactoring keymaps
+3. [completed] expr = true on refactoring keymaps
    File: lua/epinero/plugins/refactoring.lua
    Problem: All 7 refactoring keymaps use { expr = true }, but the functions call
    require("refactoring").refactor(...) for side effects and return nil. expr = true
