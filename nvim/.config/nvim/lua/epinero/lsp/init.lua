@@ -23,16 +23,28 @@ function M.setup()
 	diagnostics.setup()
 	setup_lsp_attach()
 
+	-- Use mason-lspconfig for LSP server installation + auto-enable.
+	-- It accepts lspconfig names directly and handles the Mason name mapping internally.
 	local ensure_installed = vim.tbl_filter(function(name)
 		return name ~= "roslyn_ls"
 	end, vim.tbl_keys(servers))
-	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+	require("mason-lspconfig").setup({
+		ensure_installed = ensure_installed,
+		automatic_enable = {
+			exclude = { "roslyn_ls" },
+		},
+	})
+
+	-- Apply custom configs (capabilities, settings, etc.) for each server.
+	-- mason-lspconfig's automatic_enable will call vim.lsp.enable() for us.
 	for name, server in pairs(servers) do
 		server.capabilities = vim.tbl_deep_extend("force", capabilities.get(), server.capabilities or {})
 		vim.lsp.config(name, server)
-		vim.lsp.enable(name)
 	end
+
+	-- Manually enable roslyn_ls since it's excluded from mason (not a Mason package).
+	vim.lsp.enable("roslyn_ls")
 end
 
 return M
