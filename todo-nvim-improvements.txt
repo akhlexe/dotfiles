@@ -10,7 +10,7 @@ Architecture Overview:
 BUGS (Fix These First)
 ======================================================================
 
-1. lsp-detach augroup cleared on every buffer attach
+1. [completed] lsp-detach augroup cleared on every buffer attach
    File: lua/epinero/lsp/on_attach.lua
    Problem: vim.api.nvim_create_augroup("lsp-detach", { clear = true }) wipes
    previously registered detach handlers on every new buffer attach. If 2+ buffers
