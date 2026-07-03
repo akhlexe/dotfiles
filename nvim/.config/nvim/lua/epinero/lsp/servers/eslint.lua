@@ -1,1 +1,5 @@
-return {}
+return {
+  settings = {
+    workingDirectories = { mode = "auto" },
+  },
+}
