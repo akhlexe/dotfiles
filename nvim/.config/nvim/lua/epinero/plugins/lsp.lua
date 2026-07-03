@@ -17,6 +17,22 @@ return {
 		-- Maps LSP server names between nvim-lspconfig and Mason package names.
 		"mason-org/mason-lspconfig.nvim",
 
+		-- Auto-install formatters and linters via Mason.
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			---@module 'mason-tool-installer'
+			---@type MasonToolInstallerSettings
+			---@diagnostic disable-next-line: missing-fields
+			opts = {
+				ensure_installed = {
+					"stylua",
+					"prettierd",
+					"gofumpt",
+					"goimports",
+				},
+			},
+		},
+
 		-- Useful status updates for LSP.
 		{ "j-hui/fidget.nvim", opts = {} },
 
