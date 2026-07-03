@@ -8,63 +8,11 @@ Architecture Overview:
 
 
 
-======================================================================
-KEYBINDING CONFLICTS & CONFUSION
-======================================================================
-
-
-14. <leader>rn in "Refactor" group
-    Files: lsp/on_attach.lua, plugins/which-keys.lua
-    LSP rename lives inside the "Refactor" group (semantically confusing
-    since it's LSP, not refactoring.nvim).
 
 
 ======================================================================
 MISSING CONFIGURATIONS (HIGH VALUE)
 ======================================================================
-
-16. jsonls and yamlls - No schemas
-    Files: lua/epinero/lsp/servers/jsonls.lua, yamlls.lua
-    Without schemastore.nvim, these provide almost no completion for config files.
-    Fix: Add b0o/schemastore.nvim plugin and wire schemas:
-      -- jsonls:
-      settings = {
-        json = {
-          schemas = require("schemastore").json.schemas(),
-          validate = { enable = true },
-        },
-      }
-      -- yamlls:
-      settings = {
-        yaml = {
-          schemaStore = { enable = false, url = "" },
-          schemas = require("schemastore").yaml.schemas(),
-          validate = true, hover = true, completion = true,
-          keyOrdering = false,
-        },
-      }
-
-17. autoformatting.lua - Only lua has a formatter
-    File: lua/epinero/plugins/autoformatting.lua
-    Problem: No conform formatters for TS/JS/CSS/HTML/Go/YAML.
-    Fix: Add at minimum:
-      formatters_by_ft = {
-        lua = { "stylua" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-        css = { "prettierd", "prettier", stop_after_first = true },
-        html = { "prettierd", "prettier", stop_after_first = true },
-        json = { "prettierd", "prettier", stop_after_first = true },
-        yaml = { "prettierd", "prettier", stop_after_first = true },
-        go = { "goimports", "gofumpt" },
-      }
-
-18. eslint.lua - Missing workingDirectories
-    File: lua/epinero/lsp/servers/eslint.lua
-    Fix: Add settings = { workingDirectories = { mode = "auto" } }
-    Essential for monorepo setups.
 
 19. gopls.lua - Missing useful analyses
     File: lua/epinero/lsp/servers/gopls.lua
