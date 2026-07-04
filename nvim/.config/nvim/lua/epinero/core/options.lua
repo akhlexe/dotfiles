@@ -67,7 +67,6 @@ vim.opt.pumheight = 10 -- pop up menu height
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
 
 -- File enconding
-vim.opt.encoding = "utf-8" -- the encoding used inside neovim
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 
 -- More space for messages
