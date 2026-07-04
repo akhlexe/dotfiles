@@ -1,9 +1,6 @@
 -- Disable the spacebar default behavior in Normal and Visual modes
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
--- For conciseness
-local opts = { noremap = true, silent = true }
-
 -- save file without auto formatting.
 vim.keymap.set("n", "<leader>cn", "<cmd>noautocmd w<cr>", { noremap = true, silent = true, desc = "[C]ode [N]o format save" })
 
@@ -11,7 +8,7 @@ vim.keymap.set("n", "<leader>cn", "<cmd>noautocmd w<cr>", { noremap = true, sile
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { noremap = true, silent = true, desc = "[Q]uit" })
 
 -- delete single character without copying into register
-vim.keymap.set("n", "x", '"_x', opts)
+vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true })
 
 -- Buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { noremap = true, silent = true, desc = "[B]uffer [N]ext" })
