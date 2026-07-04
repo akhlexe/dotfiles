@@ -7,7 +7,7 @@ vim.opt.relativenumber = true
 vim.opt.numberwidth = 4 -- set number column width to 4
 vim.opt.signcolumn = "yes" -- always show sign column
 
--- 2-space identation
+-- 4-space indentation
 vim.opt.tabstop = 4 -- how many spaces a tab count for
 vim.opt.shiftwidth = 4 -- identation width
 vim.opt.expandtab = true -- convert tabs to space
