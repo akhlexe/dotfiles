@@ -6,33 +6,11 @@ Architecture Overview:
 - Modern Neovim 0.11+ native LSP API (vim.lsp.config/vim.lsp.enable)
 - LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
 
-======================================================================
-PERFORMANCE
-======================================================================
-
-22. lua_ls.lua - library = vim.api.nvim_get_runtime_file("", true)
-    File: lua/epinero/lsp/servers/lua_ls.lua
-    Problem: Indexes entire runtime on startup (slow in large plugin trees).
-    Fix: Use folke/lazydev.nvim (replaces neodev.nvim) or reduce to:
-      library = { vim.env.VIMRUNTIME }
-
-25. require("telescope.builtin") called per-buffer-attach
-    File: lua/epinero/lsp/on_attach.lua
-    Fix: Wrap in closures:
-      map("gd", function() require("telescope.builtin").lsp_definitions() end, ...)
 
 ======================================================================
 STYLE & MISCELLANEOUS
 ======================================================================
 
-26. Inconsistent indentation: some files use 2-space, others use tabs
-27. vim.opt.encoding = "utf-8" is a no-op in Neovim (always utf-8) - remove
-28. opts variable in keymaps.lua defined but only used once - use consistently or drop
-29. Comment says "2-space indentation" but config uses 4-space - fix comment
-30. Copilot shows inline ghost text but isn't a blink.cmp source - Tab can feel awkward
-31. <leader>b and <leader>x buffer maps have no which-key group
-32. <leader>gh (gitsigns hunk actions) has no which-key sub-group label
-33. neotree.lua has enable_git_status = false - free feature, worth enabling
 34. 9 server files are just "return {}" - could be inlined in servers/init.lua
 35. telescope.lua uses branch = "master" instead of stable 0.1.x tag
 36. diagnostics.lua underline = false - intentional? add comment if so
