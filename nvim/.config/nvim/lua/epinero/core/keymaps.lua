@@ -13,8 +13,8 @@ vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true })
 -- Buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { noremap = true, silent = true, desc = "[B]uffer [N]ext" })
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { noremap = true, silent = true, desc = "[B]uffer [P]revious" })
-vim.keymap.set("n", "<leader>x", ":bdelete<CR>", { noremap = true, silent = true, desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>b", "<cmd> enew<cr>", { noremap = true, silent = true, desc = "[N]ew [B]uffer" })
+vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { noremap = true, silent = true, desc = "[B]uffer [D]elete" })
+vim.keymap.set("n", "<leader>bn", "<cmd> enew<cr>", { noremap = true, silent = true, desc = "[B]uffer [N]ew" })
 
 -- stay in indent mode
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true, desc = "Indent left" })
