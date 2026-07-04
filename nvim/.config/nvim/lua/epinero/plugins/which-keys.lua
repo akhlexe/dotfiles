@@ -8,6 +8,7 @@ return {
 			{ "<leader>d", group = "Debug" },
 			{ "<leader>f", group = "Find" },
 			{ "<leader>g", group = "Git" },
+			{ "<leader>gh", group = "Hunk" },
 			{ "<leader>r", group = "Refactor" },
 			{ "<leader>s", group = "Search" },
 			{ "<leader>t", group = "Tabs/Toggle" },
