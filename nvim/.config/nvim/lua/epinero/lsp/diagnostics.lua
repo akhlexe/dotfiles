@@ -7,12 +7,15 @@ function M.setup()
 			prefix = "●",
 		},
 		signs = true,
-		underline = false,
+		underline = {
+			severity = vim.diagnostic.severity.ERROR,
+		},
 		severity_sort = true,
 		float = {
 			border = "rounded",
 		},
 	})
+
 end
 
 return M
