@@ -6,15 +6,6 @@ Architecture Overview:
 - Modern Neovim 0.11+ native LSP API (vim.lsp.config/vim.lsp.enable)
 - LSP well-organized: capabilities, diagnostics, on_attach, per-server configs
 
-
-======================================================================
-STYLE & MISCELLANEOUS
-======================================================================
-
-34. 9 server files are just "return {}" - could be inlined in servers/init.lua
-35. telescope.lua uses branch = "master" instead of stable 0.1.x tag
-36. diagnostics.lua underline = false - intentional? add comment if so
-
 ======================================================================
 KEYBIND IDEAS
 ======================================================================
