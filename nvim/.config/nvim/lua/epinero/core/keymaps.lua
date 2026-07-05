@@ -32,3 +32,16 @@ end, { desc = 'Go to next diagnostic message' })
 
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = '[C]ode [D]iagnostic float' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set('n', '<leader>td', function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.disable()
+    return
+  end
+
+  vim.diagnostic.enable()
+end, { desc = '[T]oggle [D]iagnostics' })
+
+vim.keymap.set('n', '<leader>tw', function()
+  vim.wo.wrap = not vim.wo.wrap
+end, { desc = '[T]oggle [W]rap' })

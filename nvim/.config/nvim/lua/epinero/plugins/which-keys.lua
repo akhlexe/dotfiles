@@ -11,7 +11,7 @@ return {
 			{ "<leader>gh", group = "Hunk" },
 			{ "<leader>r", group = "Refactor" },
 			{ "<leader>s", group = "Search" },
-			{ "<leader>t", group = "Tabs/Toggle" },
+			{ "<leader>t", group = "Toggle" },
 			{ "<leader>w", group = "Workspace" },
 		},
 	},
