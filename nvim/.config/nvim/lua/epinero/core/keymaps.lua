@@ -32,6 +32,9 @@ end, { desc = 'Go to next diagnostic message' })
 
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = '[C]ode [D]iagnostic float' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>xq', '<cmd>copen<cr>', { noremap = true, silent = true, desc = 'Open [Q]uickfix list' })
+vim.keymap.set('n', ']q', '<cmd>cnext<cr>', { noremap = true, silent = true, desc = 'Next quickfix item' })
+vim.keymap.set('n', '[q', '<cmd>cprev<cr>', { noremap = true, silent = true, desc = 'Previous quickfix item' })
 
 vim.keymap.set('n', '<leader>td', function()
   if vim.diagnostic.is_enabled() then
