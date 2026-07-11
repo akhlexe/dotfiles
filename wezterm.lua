@@ -95,15 +95,7 @@ config.color_scheme = "Catppuccin Macchiato (Gogh)"
 -- └──────────────────────────────────────────────────────────────────────────────┘
 
 -- config.default_domain = "WSL:Ubuntu-24.04"
-config.default_prog = {
-	"wsl.exe",
-	"-d",
-	"Ubuntu-24.04",
-	"--",
-	"bash",
-	"-lc",
-	"cd ~ && tmux new-session -A -s main",
-}
+config.default_domain = "WSL:Ubuntu-24.04"
 config.front_end = "OpenGL"
 
 -- ┌──────────────────────────────────────────────────────────────────────────────┐
