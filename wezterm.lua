@@ -48,19 +48,12 @@ config.default_cursor_style = "BlinkingBar"
 -- └──────────────────────────────────────────────────────────────────────────────┘
 
 -- Terminal & Colors
--- WSL doesn't have wezterm terminfo, so we use xterm-256color there
--- See: https://github.com/Gentleman-Programming/Gentleman.Dots/issues/117
-if wezterm.target_triple:find("windows") then
-	config.term = "xterm-256color"
-else
-	config.term = "wezterm"
-end
+config.term = "xterm-256color"
 
 -- Nuevo encoding de teclas.
 -- Muy importante para neovim moderno.
-config.enable_csi_u_key_encoding = true
 config.allow_win32_input_mode = false
--- config.enable_kitty_keyboard = true
+config.enable_kitty_keyboard = true
 
 -- Undercurl support (LSP diagnostics, spelling)
 -- "undercurl" es el subrayado ondulado ~~~~~ que usa LSP para marcar warnings y errores.
