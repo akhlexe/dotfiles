@@ -6,13 +6,12 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 	},
 	keys = {
-		{ "<leader>re", function() require("refactoring").refactor("Extract Function") end, mode = { "n", "x" }, desc = "Refactor: Extract function" },
-		{ "<leader>rf", function() require("refactoring").refactor("Extract Function To File") end, mode = { "n", "x" }, desc = "Refactor: Extract function to file" },
-		{ "<leader>rv", function() require("refactoring").refactor("Extract Variable") end, mode = { "n", "x" }, desc = "Refactor: Extract variable" },
-		{ "<leader>rI", function() require("refactoring").refactor("Inline Function") end, mode = { "n", "x" }, desc = "Refactor: Inline function" },
-		{ "<leader>ri", function() require("refactoring").refactor("Inline Variable") end, mode = { "n", "x" }, desc = "Refactor: Inline variable" },
-		{ "<leader>rbb", function() require("refactoring").refactor("Extract Block") end, mode = { "n", "x" }, desc = "Refactor: Extract block" },
-		{ "<leader>rbf", function() require("refactoring").refactor("Extract Block To File") end, mode = { "n", "x" }, desc = "Refactor: Extract block to file" },
+		{ "<leader>re", function() return require("refactoring").extract_func() end, mode = { "n", "x" }, expr = true, desc = "Refactor: Extract function" },
+		{ "<leader>rf", function() return require("refactoring").extract_func_to_file() end, mode = { "n", "x" }, expr = true, desc = "Refactor: Extract function to file" },
+		{ "<leader>rv", function() return require("refactoring").extract_var() end, mode = { "n", "x" }, expr = true, desc = "Refactor: Extract variable" },
+		{ "<leader>rI", function() return require("refactoring").inline_func() end, mode = { "n", "x" }, expr = true, desc = "Refactor: Inline function" },
+		{ "<leader>ri", function() return require("refactoring").inline_var() end, mode = { "n", "x" }, expr = true, desc = "Refactor: Inline variable" },
+		{ "<leader>rs", function() return require("refactoring").select_refactor() end, mode = { "n", "x" }, desc = "Refactor: Select refactor" },
 	},
 	config = function()
 		require("refactoring").setup({})
