@@ -1,0 +1,29 @@
+[keys]
+prefix = "ctrl+a"
+detach = "prefix+d"
+previous_tab = "alt+j"
+next_tab = "alt+k"
+workspace_picker = "alt+l"
+cycle_pane_next = "alt+o"
+
+[theme]
+name = "tokyo-night"
+
+[[keys.command]]
+key = "alt+n"
+type = "popup"
+description = "new workspace"
+command = "sh -lc 'printf \"new workspace: \"; IFS= read -r name; [ -n \"$name\" ] && herdr workspace create --label \"$name\"'"
+width = 60
+height = 3
+
+[[keys.command]]
+key = "prefix+ctrl+y"
+type = "popup"
+description = "lazygit"
+command = "lazygit"
+width = "90%"
+height = "90%"
+
+[ui.sound]
+enabled = false
