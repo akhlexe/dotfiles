@@ -1,9 +1,9 @@
 [keys]
 prefix = "ctrl+a"
 detach = "prefix+d"
+goto = "alt+l"
 previous_tab = "alt+j"
 next_tab = "alt+k"
-workspace_picker = "alt+l"
 cycle_pane_next = "alt+o"
 
 [theme]
