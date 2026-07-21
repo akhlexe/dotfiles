@@ -1,3 +1,4 @@
+onboarding = false
 [keys]
 prefix = "ctrl+a"
 detach = "prefix+d"
@@ -5,10 +6,16 @@ goto = "alt+l"
 previous_tab = "alt+j"
 next_tab = "alt+k"
 cycle_pane_next = "alt+o"
+copy_mode = "prefix+e"
+edit_scrollback = "prefix+shift+e"
 
 [theme]
-name = "tokyo-night"
+name = "kanagawa"
 
+auto_switch = false
+
+[theme.custom]
+accent = "#dca561" # kanagawa autumn yellow
 [[keys.command]]
 key = "alt+n"
 type = "popup"
@@ -24,6 +31,14 @@ description = "lazygit"
 command = "lazygit"
 width = "90%"
 height = "90%"
+
+[[keys.command]]
+key = "prefix+shift+x"
+type = "popup"
+description = "close workspace"
+command = "sh -lc 'printf \"Close workspace? [y/N] \"; IFS= read -r reply; case \"$reply\" in y|Y|yes|YES) workspace_id=$(herdr api snapshot | jq -r \".result.snapshot.focused_workspace_id // .snapshot.focused_workspace_id // .focused_workspace_id\"); [ -n \"$workspace_id\" ] && [ \"$workspace_id\" != \"null\" ] && herdr workspace close \"$workspace_id\" ;; esac'"
+width = 40
+height = 3
 
 [ui.sound]
 enabled = false
