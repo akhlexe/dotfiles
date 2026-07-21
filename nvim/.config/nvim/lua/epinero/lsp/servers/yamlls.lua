@@ -1,7 +1,7 @@
 return {
 	settings = {
 		yaml = {
-			schemaStore = { enable = false, url = "" },
+			schemaStore = { enable = true },
 			schemas = require("schemastore").yaml.schemas(),
 		},
 	},
