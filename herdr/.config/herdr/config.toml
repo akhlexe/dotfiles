@@ -20,7 +20,7 @@ accent = "#dca561" # kanagawa autumn yellow
 key = "alt+n"
 type = "popup"
 description = "new workspace"
-command = "sh -lc 'printf \"new workspace: \"; IFS= read -r name; [ -n \"$name\" ] && herdr workspace create --label \"$name\"'"
+command = "sh -lc 'printf \"new workspace: \"; IFS= read -r name; [ -n \"$name\" ] && herdr workspace create --label \"$name\" --focus'"
 width = 60
 height = 3
 
