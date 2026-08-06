@@ -13,7 +13,9 @@ return {
 			"vim",
 			"vimdoc",
 			"bash",
-			"tmux",
+
+			-- treesitter unsupported language
+			-- "tmux",
 			"dockerfile",
 			"yaml",
 			"make",
