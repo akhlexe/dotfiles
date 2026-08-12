@@ -29,6 +29,8 @@ return {
 		{ "<leader>so", function() require("telescope.builtin").oldfiles() end, desc = "[S]earch [O]ldfiles" },
 		{ "<leader>sm", function() require("telescope.builtin").marks() end, desc = "Search marks" },
 		{ "<leader>sd", function() require("telescope.builtin").diagnostics() end, desc = "[S]earch [D]iagnostics" },
+		{ "<leader>se", function() require("telescope.builtin").diagnostics({ severity = vim.diagnostic.severity.ERROR }) end, desc = "[S]earch [E]rrors" },
+		{ "<leader>sb", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, desc = "[S]earch current [B]uffer diagnostics" },
 		{ "<leader>sr", function() require("telescope.builtin").resume() end, desc = "[S]earch [R]esume" },
 	},
 	config = function()

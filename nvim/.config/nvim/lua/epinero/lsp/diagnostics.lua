@@ -2,6 +2,8 @@ local M = {}
 
 function M.setup()
 	vim.diagnostic.config({
+		-- permite mostrar diagnosticos en modo insert
+		update_in_insert = true,
 		virtual_text = {
 			spacing = 2,
 			prefix = "●",
@@ -15,7 +17,6 @@ function M.setup()
 			border = "rounded",
 		},
 	})
-
 end
 
 return M
