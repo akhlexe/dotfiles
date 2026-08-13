@@ -17,6 +17,7 @@ function M.setup()
 	require("dapui").setup()
 	require("epinero.dap.go").setup()
 	require("epinero.dap.cs").setup(dap)
+	require("epinero.dap.typescript").setup(dap)
 
 	dap.listeners.before.attach.dapui_config = function()
 		dapui.open()

@@ -6,6 +6,16 @@ return {
 		"nvim-neotest/nvim-nio",
 		"rcarriga/nvim-dap-ui",
 		"leoluz/nvim-dap-go",
+		{
+			"mxsdev/nvim-dap-vscode-js",
+			branch = "start-debugging",
+			dependencies = {
+				{
+					"microsoft/vscode-js-debug",
+					build = "npm install --legacy-peer-deps --ignore-scripts && npx gulp dapDebugServer && mv dist out",
+				},
+			},
+		},
 	},
 	cmd = { "DapContinue", "DapToggleBreakpoint" },
 	keys = {
