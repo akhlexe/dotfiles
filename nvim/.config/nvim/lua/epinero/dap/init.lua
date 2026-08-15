@@ -25,6 +25,11 @@ function M.setup()
 	dap.listeners.before.launch.dapui_config = function()
 		dapui.open()
 	end
+	local function close_dapui()
+		dapui.close()
+	end
+	dap.listeners.after.event_terminated.dapui_config = close_dapui
+	dap.listeners.after.event_exited.dapui_config = close_dapui
 
 	vim.keymap.set("n", "<F5>", function()
 		require("dap").continue()
@@ -47,6 +52,14 @@ function M.setup()
 
 	vim.keymap.set("n", "<leader>de", dap.repl.open, { desc = "Open debug REPL" })
 	vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
+	vim.keymap.set("n", "<leader>ds", function()
+		dapui.float_element("scopes", {
+			width = 100,
+			height = 30,
+			enter = true,
+			position = "center",
+		})
+	end, { desc = "Float DAP scopes" })
 end
 
 return M
