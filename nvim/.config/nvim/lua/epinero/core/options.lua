@@ -1,3 +1,32 @@
+-- Isolates Neovim's persistent state (jump list, marks, search history, registers)
+-- per project by pointing the shada file to a project-specific path.
+-- This prevents jump list bleed-out when navigating between different projects.
+-- Must run before lazy.nvim loads so Neovim picks up the right shada file from the start.
+local function project_scoped_shada_file()
+    -- Detect the git root of the current repo without depending on any plugin
+    local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
+
+    -- Fall back to the current working directory if we're not inside a git repo
+    local dir = (git_root and git_root ~= "") and git_root or vim.fn.getcwd()
+
+    -- Build the path: ~/.local/state/nvim/shada/<project-name>.shada
+    -- fnamemodify ":t" extracts only the last component of the path (the directory name)
+    local shada_file = vim.fs.joinpath(
+        vim.fn.stdpath("state"), -- ~/.local/state/nvim
+        "shada",
+        vim.fn.fnamemodify(dir, ":t") .. ".shada"
+    )
+
+    -- Ensure the shada/ subdirectory exists (Neovim won't create it automatically)
+    vim.fn.mkdir(vim.fn.fnamemodify(shada_file, ":h"), "p")
+
+    return shada_file
+end
+
+-- Redirect all persistent state (jump list, marks, search history, registers)
+-- to a project-scoped shada file, preventing bleed-out between projects
+vim.o.shadafile = project_scoped_shada_file()
+
 -- Global options
 vim.g.have_nerd_font = true
 
