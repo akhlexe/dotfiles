@@ -10,91 +10,12 @@
       "model": "openai/gpt-5.6-luna",
       "variant": "xhigh"
     },
-    "architect": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
     "explorer": {
-      "model": "openai/gpt-5.4",
+      "model": "openai/gpt-5.6-luna",
+      "variant": "low",
       "permission": {
         "task": {
           "*": "deny"
-        }
-      }
-    },
-    "atomic-executor": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "implementor": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "tester": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "reviewer": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "debugger": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "docs-writer": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "refactorer": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "git-ops": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
-    },
-    "orchestrator": {
-      "model": "openai/gpt-5.4",
-      "permission": {
-        "task": {
-          "*": "allow"
         }
       }
     }
