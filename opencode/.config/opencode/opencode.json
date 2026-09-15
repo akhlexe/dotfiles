@@ -9,15 +9,6 @@
     "build": {
       "model": "openai/gpt-5.6-luna",
       "variant": "xhigh"
-    },
-    "explorer": {
-      "model": "openai/gpt-5.6-luna",
-      "variant": "low",
-      "permission": {
-        "task": {
-          "*": "deny"
-        }
-      }
     }
   },
   "default_agent": "plan",
