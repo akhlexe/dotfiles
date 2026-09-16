@@ -4,11 +4,11 @@
   "agent": {
     "plan": {
       "model": "openai/gpt-5.6-luna",
-      "variant": "xhigh"
+      "variant": "low"
     },
     "build": {
       "model": "openai/gpt-5.6-luna",
-      "variant": "xhigh"
+      "variant": "low"
     }
   },
   "default_agent": "plan",
