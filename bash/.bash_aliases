@@ -1,5 +1,6 @@
 alias cat='batcat'
 alias oc='opencode'
+alias lmd='lumen diff'
 
 tm() {
 	local session="${1:-main}"
