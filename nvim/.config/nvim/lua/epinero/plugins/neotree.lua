@@ -1,20 +1,18 @@
--- lua/plugins/neotree.lua
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
   enabled = false,
-  dependencies = { 
+  dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- optional, for icons
+    "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
   cmd = "Neotree",
   keys = {
-    { "<leader>e", "<CMD>Neotree toggle<CR>", desc = "Toggle file tree" },
+    { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle file tree" },
   },
   config = function()
-    local neo_tree = require("neo-tree")
-    neo_tree.setup({
+    require("neo-tree").setup({
       close_if_last_window = true,
       popup_border_style = "rounded",
       enable_git_status = false,
@@ -27,7 +25,10 @@ return {
         },
       },
       filesystem = {
-        follow_current_file = { enabled = true },
+        follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+        },
         use_libuv_file_watcher = true,
       },
     })
