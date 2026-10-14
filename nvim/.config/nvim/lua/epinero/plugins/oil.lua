@@ -1,6 +1,24 @@
 return {
 	"stevearc/oil.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = {
+		{
+			"nvim-tree/nvim-web-devicons",
+			opts = {
+				override_by_extension = {
+					yml = {
+						icon = "󰈙",
+						color = "#cb171e",
+						name = "Yml",
+					},
+					yaml = {
+						icon = "󰈙",
+						color = "#cb171e",
+						name = "Yaml",
+					},
+				},
+			},
+		},
+	},
 
 	opts = {
 		view_options = {
