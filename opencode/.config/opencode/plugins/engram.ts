@@ -14,8 +14,6 @@
  *   hooks (input.sessionID) rather than relying on a session.created event.
  */
 
-import type { Plugin } from "@opencode-ai/plugin"
-
 // ─── Configuration ───────────────────────────────────────────────────────────
 
 const ENGRAM_PORT = parseInt(process.env.ENGRAM_PORT ?? "7437")
@@ -196,9 +194,12 @@ function stripPrivateTags(str: string): string {
 
 // ─── Plugin Export ───────────────────────────────────────────────────────────
 
-export const Engram: Plugin = async (ctx) => {
-  const oldProject = ctx.directory.split("/").pop() ?? "unknown"
-  const project = extractProjectName(ctx.directory)
+export default {
+  id: "engram",
+  setup: async (ctx: any) => {
+  const directory = ctx.location.directory
+  const oldProject = directory.split("/").pop() ?? "unknown"
+  const project = extractProjectName(directory)
 
   // Track tool counts per session (in-memory only, not critical)
   const toolCounts = new Map<string, number>()
@@ -228,7 +229,7 @@ export const Engram: Plugin = async (ctx) => {
       body: {
         id: sessionId,
         project,
-        directory: ctx.directory,
+        directory,
       },
     })
   }
@@ -262,11 +263,11 @@ export const Engram: Plugin = async (ctx) => {
   // This is how git-synced memories get loaded when cloning a repo or
   // pulling changes. Each chunk is imported only once (tracked by ID).
   try {
-    const manifestFile = `${ctx.directory}/.engram/manifest.json`
+    const manifestFile = `${directory}/.engram/manifest.json`
     const file = Bun.file(manifestFile)
     if (await file.exists()) {
       Bun.spawn([ENGRAM_BIN, "sync", "--import"], {
-        cwd: ctx.directory,
+        cwd: directory,
         stdout: "ignore",
         stderr: "ignore",
         stdin: "ignore",
@@ -446,4 +447,5 @@ export const Engram: Plugin = async (ctx) => {
       )
     },
   }
+  },
 }
