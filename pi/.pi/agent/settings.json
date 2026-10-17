@@ -7,5 +7,6 @@
   "packages": [
     "npm:pi-web-access",
     "npm:pi-herdr-btw"
-  ]
+  ],
+  "theme": "dark-readable"
 }
