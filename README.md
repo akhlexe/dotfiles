@@ -23,6 +23,7 @@ From the repository root, install a Stow package into your home directory:
 stow -t "$HOME" bash
 stow -t "$HOME" tmux
 stow -t "$HOME" nvim
+stow -t "$HOME" pi
 ```
 
 Repeat the command for the configurations you want on a particular machine.
