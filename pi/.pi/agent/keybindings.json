@@ -1,5 +1,7 @@
 {
   "$schema": "https://pi.dev/schemas/keybindings.schema.json",
   "tui.altScreen.halfPageUp": "ctrl+u",
-  "tui.altScreen.halfPageDown": "ctrl+d"
+  "tui.altScreen.halfPageDown": "ctrl+d",
+  "tui.select.up": ["up", "k"],
+  "tui.select.down": ["down", "j"]
 }

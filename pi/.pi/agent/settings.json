@@ -5,9 +5,9 @@
   "defaultThinkingLevel": "low",
   "hideThinkingBlock": false,
   "packages": [
-    "npm:pi-web-access",
     "npm:pi-herdr-btw"
   ],
   "theme": "dark-readable",
-  "tuiMode": "fullscreen"
+  "tuiMode": "fullscreen",
+  "editorPaddingX": 1
 }
