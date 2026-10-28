@@ -33,6 +33,14 @@ width = "90%"
 height = "90%"
 
 [[keys.command]]
+key = "prefix+ctrl+s"
+type = "popup"
+description = "edit user secrets"
+command = "sh -lc 'exec \"$HOME/.config/herdr/bin/edit-user-secrets\"'"
+width = "90%"
+height = "90%"
+
+[[keys.command]]
 key = "prefix+shift+x"
 type = "popup"
 description = "close workspace"
