@@ -3,12 +3,15 @@
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-luna",
   "defaultThinkingLevel": "low",
-  "hideThinkingBlock": false,
-  "theme": "dark-readable",
+  "hideThinkingBlock": true,
+  "theme": "claude-code",
   "tuiMode": "fullscreen",
   "editorPaddingX": 1,
+  "outputPad": 2,
   "packages": [
-    "npm:pi-web-access",
-    "npm:pi-markdown-preview"
+    "npm:pi-polish",
+    "npm:pi-context-bar",
+    "npm:pi-background",
+    "npm:pi-model-pick"
   ]
 }
