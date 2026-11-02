@@ -4,14 +4,9 @@
   "defaultModel": "gpt-5.6-luna",
   "defaultThinkingLevel": "low",
   "hideThinkingBlock": true,
-  "theme": "claude-code",
+  "theme": "dark-readable",
   "tuiMode": "fullscreen",
   "editorPaddingX": 1,
   "outputPad": 2,
-  "packages": [
-    "npm:pi-polish",
-    "npm:pi-context-bar",
-    "npm:pi-background",
-    "npm:pi-model-pick"
-  ]
+  "packages": []
 }
